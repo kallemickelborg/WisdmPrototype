@@ -21,6 +21,8 @@ const NewsArticles = ({
   overall_sentiment_label,
   ticker,
 }) => {
+  const priceChangeColor = overall_sentiment_score > 0 ? "green" : "red";
+
   return (
     <TouchableOpacity
       onPress={() => {
@@ -35,7 +37,7 @@ const NewsArticles = ({
           <Image source={{ uri: banner_image }} style={styles.image} />
           {/* Left Side */}
           <View style={styles.textWrapper}>
-            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.title}>{title.slice(0, 100)}...</Text>
             <View style={styles.sourceWrapper}>
               <Text style={styles.detail}>{source}</Text>
               <Text style={styles.detail}>
@@ -45,13 +47,17 @@ const NewsArticles = ({
             <Text style={styles.subtitle}>{summary}</Text>
           </View>
 
-          {/* Right Side */}
+          {/* Sentiment Score Section */}
           <View style={styles.textWrapper}>
             <Text style={styles.title}>Sentiment Score</Text>
-            {/* <Text style={styles.title}>{url}</Text> */}
-            <Text>{overall_sentiment_score}</Text>
-            <Text>{overall_sentiment_label}</Text>
-            <Text style={styles.huge}>{[ticker]}</Text>
+            <View style={styles.sentimentWrapper}>
+              {/* <Text style={styles.title}>{url}</Text> */}
+              <Text style={styles.subtitle}>{overall_sentiment_label}</Text>
+              <Text style={[styles.subtitle, { color: priceChangeColor }]}>
+                {overall_sentiment_score}
+              </Text>
+              {/* <Text style={styles.huge}>{[ticker]}</Text> */}
+            </View>
           </View>
         </View>
       </View>
@@ -74,7 +80,7 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 4,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
@@ -90,6 +96,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  sentimentWrapper: {
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   image: {
     height: 150,
     width: "100%",
@@ -100,6 +112,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     fontSize: 16,
     fontWeight: "bold",
+    fontFamily: "PoppinsBold",
   },
   subtitle: {
     marginTop: 4,

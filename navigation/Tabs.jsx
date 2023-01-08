@@ -3,8 +3,9 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Home from "./screens/Home";
-import Settings from "./screens/Settings";
 import Watchlist from "./screens/Watchlist";
+import Explore from "./screens/Explore";
+import Profile from "./screens/Profile";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,9 +21,9 @@ const Tabs = () => {
           left: 25,
           right: 25,
           tabBarElevation: 0,
-          backgroundColor: "#333",
-          borderRadius: 25,
-          height: 75,
+          backgroundColor: "#000",
+          borderRadius: 50,
+          height: 70,
           ...styles.shadow,
         },
       }}
@@ -33,55 +34,27 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 15,
-              }}
+              style={[
+                styles.tabWrapper,
+                {
+                  backgroundColor: focused ? "#FFF" : "#000",
+                },
+              ]}
             >
               <Image
                 source={require("/Users/mickelborg/Wisdm/assets/icon.png")}
                 resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? "#e32f45" : "#748c94",
-                }}
+                style={[
+                  styles.tabImage,
+                  {
+                    tintColor: focused ? "#000" : "#FFF",
+                  },
+                ]}
               />
               <Text
-                style={{ color: focused ? "#e32f45" : "#748c94", fontSize: 12 }}
+                style={[styles.tabText, { color: focused ? "#000" : "#FFF" }]}
               >
                 Home
-              </Text>
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Settings"
-        component={Settings}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 15,
-              }}
-            >
-              <Image
-                source={require("/Users/mickelborg/Wisdm/assets/icon.png")}
-                resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? "#e32f45" : "#748c94",
-                }}
-              />
-              <Text
-                style={{ color: focused ? "#e32f45" : "#748c94", fontSize: 12 }}
-              >
-                Settings
               </Text>
             </View>
           ),
@@ -93,25 +66,91 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                top: 15,
-              }}
+              style={[
+                styles.tabWrapper,
+                {
+                  backgroundColor: focused ? "#FFF" : "#000",
+                },
+              ]}
             >
               <Image
                 source={require("/Users/mickelborg/Wisdm/assets/icon.png")}
                 resizeMode="contain"
-                style={{
-                  width: 25,
-                  height: 25,
-                  tintColor: focused ? "#e32f45" : "#748c94",
-                }}
+                style={[
+                  styles.tabImage,
+                  {
+                    tintColor: focused ? "#000" : "#FFF",
+                  },
+                ]}
               />
               <Text
-                style={{ color: focused ? "#e32f45" : "#748c94", fontSize: 12 }}
+                style={[styles.tabText, { color: focused ? "#000" : "#FFF" }]}
               >
-                Settings
+                Watchlist
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Explore"
+        component={Explore}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={[
+                styles.tabWrapper,
+                {
+                  backgroundColor: focused ? "#FFF" : "#000",
+                },
+              ]}
+            >
+              <Image
+                source={require("/Users/mickelborg/Wisdm/assets/icon.png")}
+                resizeMode="contain"
+                style={[
+                  styles.tabImage,
+                  {
+                    tintColor: focused ? "#000" : "#FFF",
+                  },
+                ]}
+              />
+              <Text
+                style={[styles.tabText, { color: focused ? "#000" : "#FFF" }]}
+              >
+                Explore
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={[
+                styles.tabWrapper,
+                {
+                  backgroundColor: focused ? "#FFF" : "#000",
+                },
+              ]}
+            >
+              <Image
+                source={require("/Users/mickelborg/Wisdm/assets/icon.png")}
+                resizeMode="contain"
+                style={[
+                  styles.tabImage,
+                  {
+                    tintColor: focused ? "#000" : "#FFF",
+                  },
+                ]}
+              />
+              <Text
+                style={[styles.tabText, { color: focused ? "#000" : "#FFF" }]}
+              >
+                Profile
               </Text>
             </View>
           ),
@@ -131,6 +170,23 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.5,
     elevation: 5,
+  },
+  tabWrapper: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 70,
+    top: 15,
+    padding: 15,
+    borderRadius: 25,
+  },
+  tabImage: {
+    width: 20,
+    height: 20,
+  },
+  tabText: {
+    fontSize: 12,
+    marginTop: 2,
+    fontFamily: "PoppinsBold", // This is the font for Wisdm
   },
 });
 
