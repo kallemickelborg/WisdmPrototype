@@ -2,15 +2,17 @@ import * as React from "react";
 import { useRef, useMemo, useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native";
 
-import { getMarketData } from "../../services/cryptoService";
+import { getMarketData } from "../../../../services/contentServices/cryptoService";
 
-import ListItem from "../../components/ListItem";
-import Chart from "../../components/Chart";
+import ListItem from "../../../ListItem/ListItem";
+import Chart from "../../../chartTemplates/Chart/Chart";
 
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
+
+import { styles } from "./WatchListStyles";
 
 export default function Watchlist({ navigation }) {
   const [data, setData] = useState([]);
@@ -77,37 +79,3 @@ export default function Watchlist({ navigation }) {
     </BottomSheetModalProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundcolor: "white",
-    flex: 1,
-  },
-  largeTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  titleWrapper: {
-    marginTop: 24,
-    paddingHorizontal: 16,
-  },
-  divider: {
-    backgroundColor: "lightgray",
-    marginHorizontal: 16,
-    marginTop: 16,
-    height: 1,
-  },
-  contentContainer: {
-    padding: 16,
-  },
-  bottomSheet: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-});

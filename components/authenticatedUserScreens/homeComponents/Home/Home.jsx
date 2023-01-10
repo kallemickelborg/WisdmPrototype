@@ -1,17 +1,22 @@
 import * as React from "react";
 import { useRef, useMemo, useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, FlatList, SafeAreaView, Button } from "react-native";
 
-import { getNewsData } from "../../services/newsService";
+import { getNewsData } from "../../../../services/contentServices/newsService";
 
-import NewsArticles from "../../components/newsArticles";
+import NewsArticles from "../../../NewsArticles/NewsArticles";
+import { log } from "react-native-reanimated";
 
 export default function Home({ navigation }) {
   const [data, setData] = useState([]);
+  const isLoaded = useRef(false);
 
   //THIS WORKS
   useEffect(() => {
-    fetchData();
+    if (!isLoaded.current) {
+      fetchData();
+      isLoaded.current = true;
+    }
   }, []);
 
   const fetchData = async () => {
@@ -36,7 +41,7 @@ export default function Home({ navigation }) {
   return (
     <View>
       <FlatList
-        keyExtractor={(item) => item.id}
+        // keyExtractor={(item) => item.id}
         data={data.feed}
         renderItem={({ item }) => (
           <NewsArticles
@@ -48,7 +53,13 @@ export default function Home({ navigation }) {
             timestamp={item.timestamp}
             overall_sentiment_score={item.overall_sentiment_score}
             overall_sentiment_label={item.overall_sentiment_label}
-            ticker={[item.ticker_sentiment.ticker]}
+            ticker={
+              !!item.ticker_sentiment[0] ? 
+              item.ticker_sentiment.map((item) => {
+                return item.ticker
+              }) : 
+              undefined
+            }
           />
         )}
       />
