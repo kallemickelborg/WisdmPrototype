@@ -15,29 +15,29 @@ import { styles } from "./AuthenticatedNavigationStyles";
 const Tab = createBottomTabNavigator();
 
 const AuthenticatedNavigation = () => {
-  const makeTabSelectors = (focused, name, icon) => {
+  const makeTabSelectors = (isFocused, name, icon) => {
     return (
       <View
       style={[
         styles.tabWrapper,
         {
-          backgroundColor: focused ? "#FFF" : "#000",
+          backgroundColor: isFocused ? "#FFF" : "#000",
         },
       ]}
     >
       <Text
-        style={[styles.tabText, { color: focused ? "#000" : "#FFF" }]}
+        style={[styles.tabText, { color: isFocused ? "#000" : "#FFF" }]}
       >
         <Ionicons name={icon} size={25} style={[
             {
-              tintColor: focused ? "#000" : "#FFF",
+              tintColor: isFocused ? "#000" : "#FFF",
             },  
         ]} />
         {`\n${name}`}
       </Text>
     </View>
     )
-  }
+  };
 
   return (
     <Tab.Navigator
@@ -77,25 +77,6 @@ const AuthenticatedNavigation = () => {
           headerTitleAlign: 'center',
           tabBarIcon: ({ focused }) => (
             makeTabSelectors(focused, 'Watch', 'bar-chart-outline')
-            // <View
-            //   style={[
-            //     styles.tabWrapper,
-            //     {
-            //       backgroundColor: focused ? "#FFF" : "#000",
-            //     },
-            //   ]}
-            // >
-            //   <Text
-            //     style={[styles.tabText, { color: focused ? "#000" : "#FFF" }]}
-            //   >
-            //     <Ionicons name="bar-chart-outline" size={25} style={[
-            //         {
-            //           tintColor: focused ? "#000" : "#FFF",
-            //         },
-            //     ]} />
-            //     {`\nWatch List`}
-            //   </Text>
-            // </View>
           ),
         }}
       />
@@ -105,25 +86,7 @@ const AuthenticatedNavigation = () => {
         options={{
           headerTitleAlign: 'center',
           tabBarIcon: ({ focused }) => (
-            <View
-              style={[
-                styles.tabWrapper,
-                {
-                  backgroundColor: focused ? "#FFF" : "#000",
-                },
-              ]}
-            >
-              <Text
-                style={[styles.tabText, { color: focused ? "#000" : "#FFF" }]}
-              >
-                <Ionicons name="search-outline" size={25} style={[
-                    {
-                      tintColor: focused ? "#000" : "#FFF",
-                    },
-                ]} />
-                {`\nExplore`}
-              </Text>
-            </View>
+            makeTabSelectors(focused, 'Explore', 'search-outline')
           ),
         }}
       />
@@ -133,25 +96,7 @@ const AuthenticatedNavigation = () => {
         options={{
           headerTitleAlign: 'center',
           tabBarIcon: ({ focused }) => (
-            <View
-              style={[
-                styles.tabWrapper,
-                {
-                  backgroundColor: focused ? "#FFF" : "#000",
-                },
-              ]}
-            >
-              <Text
-                style={[styles.tabText, { color: focused ? "#000" : "#FFF" }]}
-              >
-                <Ionicons name="person-outline" size={25} style={[
-                    {
-                      tintColor: focused ? "#000" : "#FFF",
-                    },
-                ]} />
-                {`\nProfile`}
-              </Text>
-            </View>
+            makeTabSelectors(focused, 'Profile', 'person-outline')
           ),
         }}
       />
