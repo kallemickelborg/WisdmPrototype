@@ -2,9 +2,11 @@ import React from "react";
 import { useCallback } from 'react';
 import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import Tabs from "./navigation/Tabs";
+import Navigation from './components/navigationComponents/NavigationContainer/NavigationContainer'
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+
+import { styles } from './AppStyles'
 
 // SplashScreen.preventAutoHideAsync();
 
@@ -27,17 +29,10 @@ const App = () => {
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        <Tabs />
+        <Navigation />
       </NavigationContainer>
     </View>
   );
-};
-
-const styles = {
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
 };
 
 export default App;
