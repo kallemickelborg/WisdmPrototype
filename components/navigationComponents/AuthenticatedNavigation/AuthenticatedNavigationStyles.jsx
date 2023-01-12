@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { FlipInEasyX } from "react-native-reanimated";
 
 
 export const styles = StyleSheet.create({
@@ -15,16 +16,13 @@ export const styles = StyleSheet.create({
   tabWrapper: {
     alignItems: "center",
     justifyContent: "center",
-    width: 70,
-    top: 15,
-    padding: 15,
+    width: 85,
+    height: 50,
+    top: 0,
     borderRadius: 25,
   },
-  tabImage: {
-    width: 20,
-    height: 20,
-  },
   tabText: {
+    textAlign: "center",
     fontSize: 12,
     marginTop: 2,
     fontFamily: "PoppinsBold", // This is the font for Wisdm

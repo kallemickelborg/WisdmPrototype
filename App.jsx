@@ -2,7 +2,7 @@ import React from "react";
 import { useCallback } from 'react';
 import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import Navigation from './components/Navigation/Navigation'
+import Navigation from './components/navigationComponents/NavigationContainer/NavigationContainer'
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
