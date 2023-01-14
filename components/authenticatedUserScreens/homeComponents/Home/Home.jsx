@@ -41,7 +41,7 @@ export default function Home({ navigation }) {
   return (
     <View>
       <FlatList
-        // keyExtractor={(item) => item.id}
+        // keyExtractor={(item) => item.source.replace(' ', '').concat(item.title.replace(' ', ''))}
         data={data.feed}
         renderItem={({ item }) => (
           <NewsArticles

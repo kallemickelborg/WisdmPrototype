@@ -1,4 +1,6 @@
 import React from "react";
+import { Provider } from "react-redux";
+import store from './redux/store'
 import { useCallback } from 'react';
 import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -27,11 +29,13 @@ const App = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <NavigationContainer>
-        <Navigation />
-      </NavigationContainer>
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <NavigationContainer>
+          <Navigation />
+        </NavigationContainer>
+      </View>
+    </Provider>
   );
 };
 
