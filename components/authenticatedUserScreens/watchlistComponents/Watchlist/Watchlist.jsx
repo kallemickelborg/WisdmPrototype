@@ -9,20 +9,25 @@ import ListItem from "../../../ListItem/ListItem";
 import { styles } from "./WatchListStyles";
 
 export default function Watchlist({ navigation }) {
+  const isLoaded = useRef(false);
   const [data, setData] = useState();
 
   useEffect(() => {
-    const fetchMarketData = async () => {
-      const marketData = await getMarketData();
-      setData(marketData);
-    };
-    fetchMarketData();
-    return () => fetchMarketData();
+    if (!isLoaded.current) {
+      fetchMarketData();
+      isLoaded.current = true;
+    }
+    return () => isLoaded.current = false;
   }, []);
-
+  
   useEffect(() => {
     // console.log(data);
   }, [data])
+
+  const fetchMarketData = async () => {
+    const marketData = await getMarketData();
+    setData(marketData);
+  };
 
   return (
     <View style={styles.container}>
