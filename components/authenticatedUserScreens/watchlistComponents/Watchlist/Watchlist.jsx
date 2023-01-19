@@ -1,31 +1,37 @@
 import * as React from "react";
 import { useRef, useMemo, useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native";
+import { View, Text, ActivityIndicator, FlatList, SafeAreaView } from "react-native";
 
 import { getMarketData } from "../../../../services/contentServices/cryptoService";
 
 import ListItem from "../../../ListItem/ListItem";
 
 import { styles } from "./WatchListStyles";
+import { styles as gStyles } from "../../../../globalStyles";
 
-export default function Watchlist({ navigation }) {
+export default function Watchlist() {
+  const isLoaded = useRef(false);
   const [data, setData] = useState();
 
   useEffect(() => {
-    const fetchMarketData = async () => {
-      const marketData = await getMarketData();
-      setData(marketData);
-    };
-    fetchMarketData();
-    return () => fetchMarketData();
+    if (!isLoaded.current) {
+      fetchMarketData();
+      isLoaded.current = true;
+    }
+    return () => isLoaded.current = false;
   }, []);
 
   useEffect(() => {
     // console.log(data);
   }, [data])
 
+  const fetchMarketData = async () => {
+    const marketData = await getMarketData();
+    setData(marketData);
+  };
+
   return (
-    <View style={styles.container}>
+    <View style={gStyles.screenContainer}>
       {
         !!data ?
         <FlatList
@@ -43,7 +49,7 @@ export default function Watchlist({ navigation }) {
           />
         )}
       /> :
-      <Text>Loading...</Text>
+      <ActivityIndicator size="large"/>
       }
     </View>
   );

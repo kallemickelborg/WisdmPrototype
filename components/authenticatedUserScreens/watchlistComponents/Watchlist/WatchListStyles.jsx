@@ -1,10 +1,7 @@
 import { StyleSheet} from "react-native";
+import { colors } from "../../../../globalStyles";
 
 export const styles = StyleSheet.create({
-  container: {
-    backgroundcolor: "white",
-    flex: 1,
-  },
   largeTitle: {
     fontSize: 24,
     fontWeight: "bold",
@@ -23,7 +20,7 @@ export const styles = StyleSheet.create({
     padding: 16,
   },
   bottomSheet: {
-    shadowColor: "#000",
+    shadowColor: colors.quaternary,
     shadowOffset: {
       width: 0,
       height: 4,

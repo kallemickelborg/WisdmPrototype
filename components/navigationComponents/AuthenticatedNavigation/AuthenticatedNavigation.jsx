@@ -11,6 +11,7 @@ import Profile from "../../authenticatedUserScreens/profileComponents/Profile/Pr
 import { FlipInEasyX } from "react-native-reanimated";
 
 import { styles } from "./AuthenticatedNavigationStyles";
+import { colors, spacing } from "../../../globalStyles";
 
 const Tab = createBottomTabNavigator();
 
@@ -21,16 +22,16 @@ const AuthenticatedNavigation = () => {
       style={[
         styles.tabWrapper,
         {
-          backgroundColor: isFocused ? "#FFF" : "#000",
+          backgroundColor: isFocused ? colors.primary : colors.quaternary,
         },
       ]}
     >
       <Text
-        style={[styles.tabText, { color: isFocused ? "#000" : "#FFF" }]}
+        style={[styles.tabText, { color: isFocused ? colors.quaternary : colors.primary }]}
       >
-        <Ionicons name={icon} size={25} style={[
+        <Ionicons name={icon} size={spacing.large} style={[
             {
-              tintColor: isFocused ? "#000" : "#FFF",
+              tintColor: isFocused ? colors.quaternary : colors.primary,
             },  
         ]} />
         {`\n${name}`}
@@ -42,16 +43,17 @@ const AuthenticatedNavigation = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        // headerShown: false,
+        headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
           zIndex: 1,
           position: "absolute",
-          bottom: -80,
-          left: 25,
-          right: 25,
+          // bottom: -80,
+          bottom: spacing.large,
+          left: spacing.large,
+          right: spacing.large,
           tabBarElevation: 0,
-          backgroundColor: "#000",
+          backgroundColor: colors.quaternary,
           borderRadius: 50,
           height: 70,
           paddingEnd: 10,

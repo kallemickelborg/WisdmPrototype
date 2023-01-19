@@ -1,68 +1,57 @@
 import * as React from "react";
-import { useRef, useMemo, useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList, SafeAreaView, Button } from "react-native";
+import { useRef, useState, useEffect } from "react";
+import { View, FlatList, ActivityIndicator } from "react-native";
 
 import { getNewsData } from "../../../../services/contentServices/newsService";
 
 import NewsArticles from "../../../NewsArticles/NewsArticles";
-import { log } from "react-native-reanimated";
 
-export default function Home({ navigation }) {
+import { styles as globalStyles } from '../../../../globalStyles'
+
+export default function Home() {
   const [data, setData] = useState([]);
   const isLoaded = useRef(false);
 
-  //THIS WORKS
   useEffect(() => {
     if (!isLoaded.current) {
-      fetchData();
+      getData();
       isLoaded.current = true;
     }
+    return () => isLoaded.current = false;
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        "https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=U2RY4TXA0UM40IJ5"
-      );
-      const json = await response.json();
-      setData(json);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  useEffect(() => {
+    // console.log(data);
+  }, [data])
 
-  // const newData = [];
-  // data.forEach((obj) => {
-  //   if (!newData.some((o) => o.name === obj.name)) {
-  //     newData.push({ ...obj });
-  //   }
-  // });
+  const getData = async () => {
+    const newsData = await getNewsData();
+    setData(newsData);
+  }
 
   return (
-    <View>
-      <FlatList
-        // keyExtractor={(item) => item.id}
-        data={data.feed}
-        renderItem={({ item }) => (
-          <NewsArticles
-            title={item.title}
-            source={item.source}
-            summary={item.summary}
-            url={item.url}
-            banner_image={item.banner_image}
-            timestamp={item.timestamp}
-            overall_sentiment_score={item.overall_sentiment_score}
-            overall_sentiment_label={item.overall_sentiment_label}
-            ticker={
-              !!item.ticker_sentiment[0] ? 
-              item.ticker_sentiment.map((item) => {
-                return item.ticker
-              }) : 
-              undefined
-            }
-          />
-        )}
-      />
+    <View style={globalStyles.screenContainer}>
+      {
+        data.length ?
+        <FlatList
+          // keyExtractor={(item) => item.source.replace(' ', '').concat(item.title.replace(' ', ''))}
+          data={data}
+          renderItem={({ item }) => (
+            <NewsArticles
+              title={item.title}
+              source={item.source}
+              summary={item.summary}
+              url={item.url}
+              banner_image={item.banner_image}
+              timestamp={item.timestamp}
+              overall_sentiment_score={item.overall_sentiment_score}
+              overall_sentiment_label={item.overall_sentiment_label}
+              ticker={item.ticker}
+            />
+          )}
+        /> :
+        <ActivityIndicator size="large"/>
+      }
     </View>
   );
 }

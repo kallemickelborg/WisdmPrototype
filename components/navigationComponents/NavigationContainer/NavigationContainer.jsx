@@ -1,12 +1,15 @@
-import React, {useState} from "react";
+import React from "react";
+import { useSelector } from 'react-redux';
+import { authToken } from "../../../redux/reducers/userSlice";
 
 import AuthenticatedNavigation from "../AuthenticatedNavigation/AuthenticatedNavigation";
-import UnauthenticatedNavigation from "../UnauthenticatedNavigation/UnauthentiactedNavigation";
+import UnauthenticatedNavigation from "../UnauthenticatedNavigation/UnauthenticatedNavigation";
 
 const Navigation = () => {
-  const [token, setToken] = useState(true)
+  const token = useSelector(authToken); 
+  // console.log(token);
   return (
-    token ?
+    !!token ?
     <AuthenticatedNavigation/> :
     <UnauthenticatedNavigation/>
   )
