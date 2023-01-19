@@ -1,10 +1,12 @@
 import * as React from "react";
 import { useRef, useState, useEffect } from "react";
-import { View, FlatList, Text } from "react-native";
+import { View, FlatList, ActivityIndicator } from "react-native";
 
 import { getNewsData } from "../../../../services/contentServices/newsService";
 
 import NewsArticles from "../../../NewsArticles/NewsArticles";
+
+import { styles as globalStyles } from '../../../../globalStyles'
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -28,7 +30,7 @@ export default function Home() {
   }
 
   return (
-    <View>
+    <View style={globalStyles.screenContainer}>
       {
         data.length ?
         <FlatList
@@ -48,7 +50,7 @@ export default function Home() {
             />
           )}
         /> :
-        <Text>Loading...</Text>
+        <ActivityIndicator size="large"/>
       }
     </View>
   );

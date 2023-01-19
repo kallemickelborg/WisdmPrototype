@@ -1,6 +1,7 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import { FlipInEasyX } from "react-native-reanimated";
 
+import { fonts } from "../../../globalStyles";
 
 export const styles = StyleSheet.create({
   shadow: {
@@ -14,17 +15,16 @@ export const styles = StyleSheet.create({
     elevation: 5,
   },
   tabWrapper: {
-    alignItems: "center",
-    justifyContent: "center",
     width: 85,
     height: 50,
-    top: 0,
+    top: Platform.OS === 'ios' ? 15 : 0,
+    // top: 0,
     borderRadius: 25,
   },
   tabText: {
     textAlign: "center",
     fontSize: 12,
     marginTop: 2,
-    fontFamily: "PoppinsBold", // This is the font for Wisdm
+    fontFamily: fonts.primary, // This is the font for Wisdm
   },
 });

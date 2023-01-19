@@ -1,5 +1,7 @@
 import { Dimensions, StyleSheet } from "react-native";
 
+import { colors, fontSizes } from "../../globalStyles";
+
 export const styles = StyleSheet.create({
   wrapperContainer: {
     alignItems: "center",
@@ -8,11 +10,11 @@ export const styles = StyleSheet.create({
   itemWrapper: {
     marginTop: 24,
     flexDirection: "column",
-    backgroundColor: "#fff",
+    backgroundColor: colors.primary,
     borderRadius: 15,
     width: Dimensions.get("window").width - 32,
     justifyContent: "center",
-    shadowColor: "#000",
+    shadowColor: colors.quaternary,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -45,14 +47,12 @@ export const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 8,
-    fontSize: 16,
-    fontWeight: "bold",
-    fontFamily: "PoppinsBold",
+    ...fontSizes.smallHeadings
   },
   subtitle: {
     marginTop: 4,
     fontSize: 14,
-    color: "#000",
+    color: colors.quaternary,
   },
   detail: {
     fontSize: 14,
