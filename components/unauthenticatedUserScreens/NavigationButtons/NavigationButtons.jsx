@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 import CustomButton from '../../buttonComponents/CustomButton/CustomButton';
-import SmallHeadings from '../../textComponents/SmallHeadings/SmallHeadings';
-import SubHeadings from '../../textComponents/SubHeadings/SubHeadings';
+
+import { SmallHeadings, SubHeadings } from '../../Text/Text';
 
 import { styles } from './NavigationButtonsStyles';
 
@@ -18,7 +18,7 @@ const NavigationButtons = ({
     <View style={[ styles.buttonsContainer ]}>
       <CustomButton
         onPress={topButtonOnPress}
-        style={[ styles.topButton ]}
+        style={[ styles.topButton, styles.button ]}
       >
         <SmallHeadings
           style={[styles.topButtonText, styles.text]}
@@ -28,7 +28,7 @@ const NavigationButtons = ({
       </CustomButton>
       <CustomButton
         onPress={bottomButtonOnPress}
-        style={[ styles.bottomButton ]}
+        style={[ styles.bottomButton, styles.button ]}
       >
         <Text>
           {

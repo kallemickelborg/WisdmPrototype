@@ -2,8 +2,12 @@ import React from 'react';
 
 import InnerContainer from '../../../containers/InnerContainer/InnerContainer';
 import NavigationButtons from '../../NavigationButtons/NavigationButtons';
-import BodyOne from '../../../textComponents/BodyOne/BodyOne';
-import BodyThree from '../../../textComponents/BodyThree/BodyThree';
+
+import LineChart from '../../../chartTemplates/LineChart/LineChart';
+
+import sampleData from '../../../../sample-data.json';
+
+import { BodyOne, BodyThree } from '../../../Text/Text';
 
 
 const OnboardingInfoWatchlist = ({ setProgress }) => {
@@ -16,6 +20,9 @@ const OnboardingInfoWatchlist = ({ setProgress }) => {
         <BodyThree style={{ textAlign: 'center' }}>
           {`(Select at least three)`}
         </BodyThree>
+        <LineChart
+          sparkline={sampleData.sparkline_in_7d.price}
+        />
       </InnerContainer>
       <NavigationButtons
         topButtonTitle="Next"

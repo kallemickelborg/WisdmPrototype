@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { colors, radius, spacing } from "../../../../globalStyles";
+import { colors, radius, spacing, responsivePixels } from "../../../../globalStyles";
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     marginBottom: spacing.large
   },
   barSegment: {
-    height: 8,
+    height: responsivePixels(8),
     width: '17%',
     backgroundColor: colors.secondary,
     borderRadius: radius.small

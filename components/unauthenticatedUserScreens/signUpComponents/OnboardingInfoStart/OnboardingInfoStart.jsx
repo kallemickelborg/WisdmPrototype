@@ -2,8 +2,8 @@ import React from "react";
 
 import InnerContainer from "../../../containers/InnerContainer/InnerContainer";
 import NavigationButtons from "../../NavigationButtons/NavigationButtons";
-import LargeHeadings from "../../../textComponents/LargeHeadings/LargeHeadings";
-import SubHeadings from "../../../textComponents/SubHeadings/SubHeadings";
+
+import { LargeHeadings, SubHeadings } from "../../../Text/Text";
 
 import { spacing } from "../../../../globalStyles";
 

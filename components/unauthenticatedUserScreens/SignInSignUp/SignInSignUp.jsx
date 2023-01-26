@@ -3,15 +3,15 @@ import React from 'react';
 import MainContainer from '../../containers/MainContainer/MainContainer';
 import InnerContainer from '../../containers/InnerContainer/InnerContainer';
 import NavigationButtons from '../NavigationButtons/NavigationButtons';
-import LargeHeadings from '../../textComponents/LargeHeadings/LargeHeadings';
-import SubHeadings from '../../textComponents/SubHeadings/SubHeadings';
 
-import { spacing } from '../../../globalStyles';
+import { LargeHeadings, SubHeadings } from '../../Text/Text';
+
+import { spacing, responsivePixels } from '../../../globalStyles';
 
 const SignInSignUp = ({ navigation }) => {
   return (
     <MainContainer>
-      <InnerContainer style={{ marginTop: 125 }}>
+      <InnerContainer style={{ marginTop: responsivePixels(125) }}>
         <LargeHeadings style={{paddingBottom: spacing.small}}>
           {`Investing \ndoesn't have \nto be hard.`}
         </LargeHeadings>
