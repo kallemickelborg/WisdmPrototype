@@ -2,12 +2,13 @@ import * as React from "react";
 import { useRef, useMemo, useState, useEffect } from "react";
 import { View, Text, ActivityIndicator, FlatList, SafeAreaView } from "react-native";
 
+import MainContainer from '../../../containers/MainContainer/MainContainer'
+
 import { getMarketData } from "../../../../services/contentServices/cryptoService";
 
 import ListItem from "../../../ListItem/ListItem";
 
 import { styles } from "./WatchListStyles";
-import { styles as gStyles } from "../../../../globalStyles";
 
 export default function Watchlist() {
   const isLoaded = useRef(false);
@@ -31,10 +32,11 @@ export default function Watchlist() {
   };
 
   return (
-    <View style={gStyles.screenContainer}>
+    <MainContainer style={{ marginBottom: 100 }}>
       {
         !!data ?
         <FlatList
+        style={{ width: '100%' }}
         keyExtractor={(item) => item.id}
         data={data}
         renderItem={({ item }) => (
@@ -51,7 +53,7 @@ export default function Watchlist() {
       /> :
       <ActivityIndicator size="large"/>
       }
-    </View>
+    </MainContainer>
   );
 }
 

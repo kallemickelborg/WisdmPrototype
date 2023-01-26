@@ -1,5 +1,9 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, Image } from "react-native";
+
+import CustomButton from "../buttonComponents/CustomButton/CustomButton";
+
+import { SmallHeadings, BodyThree } from "../Text/Text";
 
 import { styles } from './ListItemStyles'
 
@@ -14,29 +18,30 @@ const ListItem = ({
   const priceChangeColor = priceChangePercentage7d > 0 ? "green" : "red";
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.itemWrapper}>
+    <CustomButton onPress={onPress} style={[ styles.buttonWrapper ]}>
+      {/* <View style={styles.itemWrapper}> */}
         {/* Left Side */}
         <View style={styles.leftWrapper}>
-          <Image source={{ uri: logoUrl }} style={styles.image} />
-
+          <View style={[ styles.imageWrapper ]}>
+            <Image source={{ uri: logoUrl }} style={styles.image} />
+          </View>
           <View style={styles.titlesWrapper}>
-            <Text style={styles.title}>{name}</Text>
-            <Text style={styles.subtitle}>{symbol.toUpperCase()}</Text>
+            <SmallHeadings >{name}</SmallHeadings>
+            <BodyThree >{symbol.toUpperCase()}</BodyThree>
           </View>
         </View>
 
         {/* Right Side */}
         <View style={styles.rightWrapper}>
-          <Text style={styles.title}>
+          <SmallHeadings style={{ fontSize: 14 }}>
             ${currentPrice.toLocaleString("en-US", { currency: "USD" })} USD
-          </Text>
+          </SmallHeadings>
           <Text style={[styles.subtitle, { color: priceChangeColor }]}>
             {priceChangePercentage7d.toFixed(2)}%
           </Text>
         </View>
-      </View>
-    </TouchableOpacity>
+      {/* </View> */}
+    </CustomButton>
   );
 };
 

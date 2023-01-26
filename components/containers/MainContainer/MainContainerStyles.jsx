@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
-import { colors, spacing } from "../../../globalStyles";
+import { colors, spacing, dimensions } from "../../../globalStyles";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.primary,
-    paddingTop: 75,
+    paddingTop: dimensions.windowHeight * 0.09,
     paddingBottom: spacing.large,
     paddingHorizontal: spacing.large,
   }

@@ -1,14 +1,15 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
+
+import { responsivePixels } from '../../../../globalStyles';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import CustomButton from '../../../buttonComponents/CustomButton/CustomButton';
-import MediumHeadings from '../../../textComponents/MediumHeadings/MediumHeadings';
-import SmallHeadings from '../../../textComponents/SmallHeadings/SmallHeadings';
-import SubHeadings from '../../../textComponents/SubHeadings/SubHeadings';
-import BodyOne from '../../../textComponents/BodyOne/BodyOne';
-import FinePrint from '../../../textComponents/FinePrint/FinePrint';
+
+import { 
+  MediumHeadings, ModalHeadings, SmallHeadings, SubHeadings, BodyOne, FinePrint
+} from '../../../Text/Text';
 
 import { styles } from './TrialStyles';
 
@@ -16,7 +17,7 @@ const Trial = () => {
   const makeCheckmarkViews = (text) => {
     return (
       <View style={[ styles.checkmarkContainer ]}>
-        <Ionicons name={'checkmark-circle'} size={25} style={[ styles.checkmark ]}/>
+        <Ionicons name={'checkmark-circle'} size={responsivePixels(25)} style={[ styles.checkmark ]}/>
         <SmallHeadings>
           {text}
         </SmallHeadings>
@@ -24,7 +25,7 @@ const Trial = () => {
     )
   }
   return (
-    <>
+    <ScrollView>
       <MediumHeadings style={[ styles.heading ]}>
         {`Get access to \neverything Wisdm \nhas to offer.`}
       </MediumHeadings>
@@ -33,6 +34,17 @@ const Trial = () => {
       { makeCheckmarkViews(`Informative lessons for any skill level`) }
       { makeCheckmarkViews(`Relevant news bites to stay up to date`) }
       <BodyOne style={[ styles.planSubHeading ]}>{`Choose Your Plan`}</BodyOne>
+      <CustomButton style={[ styles.trialButtons ]}>
+        <View style={[ styles.bestValueWrapper ]}>
+          <FinePrint style={[ styles.bestValueText ]}>{`Best value`}</FinePrint>
+        </View>
+        <ModalHeadings style={[ styles.trialButtonHeader ]}>{`Annual`}</ModalHeadings>
+        <BodyOne>{`$10/month after 14 day trial`}</BodyOne>
+      </CustomButton>
+      <CustomButton style={[ styles.trialButtons ]}>
+        <ModalHeadings style={[ styles.trialButtonHeader ]}>{`Monthly`}</ModalHeadings>
+        <BodyOne>{`$15/month after 7 day trial`}</BodyOne>
+      </CustomButton>
       <CustomButton 
         style={[ styles.finePrintButton ]}
         // onPress={}
@@ -45,7 +57,7 @@ const Trial = () => {
       >
         <SmallHeadings style={[ styles.startTrialButtonText ]}>{`Start your 7-day free trial`}</SmallHeadings>
       </CustomButton>
-    </>
+    </ScrollView>
   )
 }
 
