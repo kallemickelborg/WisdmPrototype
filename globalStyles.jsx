@@ -3,13 +3,13 @@ import { StyleSheet, Platform, Dimensions } from "react-native";
 export const dimensions = {
   windowHeight: Dimensions.get('window').height,
   windowWidth: Dimensions.get('window').width,
-  viewportWidthUnit: function() { return this.windowHeight * 0.01 },
+  viewportHeightUnit: function() { return this.windowHeight * 0.01 },
   viewportWidthUnit: function() { return this.windowWidth * 0.01 },
-  viewportAreaUnit: function() { return (this.windowWidth + this.windowHeight) * 0.01 },
+  viewportTotalUnit: function() { return (this.windowWidth + this.windowHeight) * 0.01 },
   remUnit: (pixel) => pixel / 16,
 }
 
-export const responsivePixels = (pixel) => dimensions.viewportAreaUnit() * dimensions.remUnit(pixel);
+export const responsivePixels = (pixel) => dimensions.viewportTotalUnit() * dimensions.remUnit(pixel);
 
 export const colors = {
   primary: '#FFFFFF',
