@@ -21,6 +21,9 @@ const OnboardingInfoWatchlist = ({ setProgress }) => {
           {`(Select at least three)`}
         </BodyThree>
         <LineChart
+          height={100}
+          width={400}
+          color={'blue'}
           sparkline={sampleData.sparkline_in_7d.price}
         />
       </InnerContainer>
