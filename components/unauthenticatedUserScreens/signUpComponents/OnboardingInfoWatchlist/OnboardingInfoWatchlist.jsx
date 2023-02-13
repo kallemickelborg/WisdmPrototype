@@ -1,31 +1,80 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { ScrollView } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import InnerContainer from '../../../containers/InnerContainer/InnerContainer';
 import NavigationButtons from '../../NavigationButtons/NavigationButtons';
+import TickerButton from '../../../buttonComponents/TickerButton/TickerButton';
+import CustomButton from '../../../buttonComponents/CustomButton/CustomButton';
 
-import LineChart from '../../../chartTemplates/LineChart/LineChart';
+import { BodyOne, BodyThree, FinePrint } from '../../../Text/Text';
 
-import sampleData from '../../../../sample-data.json';
+import { getMarketData } from '../../../../services/contentServices/cryptoService';
 
-import { BodyOne, BodyThree } from '../../../Text/Text';
-
+import { styles } from './OnboardingWatchlistStyles';
+import { colorObject } from '../../../../redux/reducers/colorSlice';
 
 const OnboardingInfoWatchlist = ({ setProgress }) => {
+  const [ tickerButtonData, setTickerButtonData ] = useState();
+  const [ selectedTopicsArray, setSelectedTopicsArray ] = useState([]);
+
+  const colors = useSelector(colorObject);
+
+  useEffect(() => {
+    fetchTickerButtonData()
+  }, [])
+  const fetchTickerButtonData = async () => {
+    const marketData = await getMarketData();
+    setTickerButtonData(marketData);
+  };
+
+  const onPressTopic = (name) => {
+    if (selectedTopicsArray.includes(name)) {
+      const filteredArray = selectedTopicsArray.filter((item) => {
+        if (item !== name) {
+          return item
+        }
+      })
+      setSelectedTopicsArray(filteredArray);
+    } else {
+      setSelectedTopicsArray(prevState => [...prevState, name]);
+    }
+  }
+
+  const isSelectedFunction = (value, array) => array.includes(value) ? true : false; 
   return (
     <>
       <InnerContainer>
         <BodyOne style={{ textAlign: 'center' }}>
           {`What stocks are you interested in keeping up with?`}
         </BodyOne>
-        <BodyThree style={{ textAlign: 'center' }}>
+        <BodyThree style={[ styles.selectThree ]}>
           {`(Select at least three)`}
         </BodyThree>
-        <LineChart
-          height={100}
-          width={400}
-          color={'blue'}
-          sparkline={sampleData.sparkline_in_7d.price}
-        />
+        <ScrollView>
+          {
+            !!tickerButtonData ?
+            tickerButtonData.map((item, index) => (
+              <TickerButton
+                key={`${item.id}${index}`}
+                name={item.name}
+                symbol={item.symbol}
+                currentPrice={item.current_price}
+                priceChangePercentage7d={
+                  item.price_change_percentage_7d_in_currency
+                }
+                logoUrl={item.image}
+                sparkline={item.sparkline_in_7d.price}
+                onPress={() => onPressTopic(item.name)}
+                isSelected={isSelectedFunction(item.name, selectedTopicsArray)}
+              />
+            )) :
+            null
+          }
+          <CustomButton style={{ backgroundColor: colors.primary }}>
+            <FinePrint>{`See more`}</FinePrint>
+          </CustomButton>
+        </ScrollView>
       </InnerContainer>
       <NavigationButtons
         topButtonTitle="Next"

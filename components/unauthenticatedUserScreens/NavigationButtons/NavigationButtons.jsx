@@ -1,11 +1,14 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import CustomButton from '../../buttonComponents/CustomButton/CustomButton';
 
 import { SmallHeadings, SubHeadings } from '../../Text/Text';
 
 import { styles } from './NavigationButtonsStyles';
+
+import { colorObject } from '../../../redux/reducers/colorSlice';
 
 const NavigationButtons = ({
   topButtonTitle, 
@@ -14,21 +17,22 @@ const NavigationButtons = ({
   topButtonOnPress, 
   bottomButtonOnPress
   }) => {
+  const colors = useSelector(colorObject);
   return (
     <View style={[ styles.buttonsContainer ]}>
       <CustomButton
         onPress={topButtonOnPress}
-        style={[ styles.topButton, styles.button ]}
+        style={[ { backgroundColor: colors.quaternary }, styles.button ]}
       >
         <SmallHeadings
-          style={[styles.topButtonText, styles.text]}
+          style={[ { color: colors.primary }, styles.text]}
         >
           {topButtonTitle}
         </SmallHeadings>
       </CustomButton>
       <CustomButton
         onPress={bottomButtonOnPress}
-        style={[ styles.bottomButton, styles.button ]}
+        style={[ { backgroundColor: colors.primary }, styles.button ]}
       >
         <Text>
           {
@@ -37,7 +41,7 @@ const NavigationButtons = ({
             null
           }
           <SmallHeadings
-            style={[ styles.bottomButtonText, styles.text ]}
+            style={[ { color: colors.quaternary }, styles.text ]}
           >
             {bottomButtonTitle}
           </SmallHeadings>

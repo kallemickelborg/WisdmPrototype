@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { colors, radius } from "../../../globalStyles";
+import { radius } from "../../../globalStyles";
 
 export const styles = StyleSheet.create({
   buttonsContainer: {
@@ -10,19 +10,7 @@ export const styles = StyleSheet.create({
   button: {
     borderRadius: radius.large
   },
-  topButton: {
-    backgroundColor: colors.quaternary,
-  },
-  bottomButton: {
-    backgroundColor: colors.primary,
-  },
   text: {
     textAlign: 'center'
   },
-  topButtonText: {
-    color: colors.primary,
-  },
-  bottomButtonText: {
-    color: colors.quaternary,
-  }
 });

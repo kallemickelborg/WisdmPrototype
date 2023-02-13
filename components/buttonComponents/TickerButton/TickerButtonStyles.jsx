@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { radius, spacing, responsivePixels } from "../../globalStyles";
+import { radius, spacing, responsivePixels } from "../../../globalStyles";
 
 export const styles = StyleSheet.create({
   buttonWrapper: {
@@ -9,16 +9,10 @@ export const styles = StyleSheet.create({
     flexDirection: 'row', 
     justifyContent: 'space-between', 
     width: '100%', 
-    paddingStart: 10, 
-    paddingEnd: 10, 
-    paddingTop: 5, 
-    paddingBottom: 5 
-  },
-  itemWrapper: {
-    // paddingHorizontal: 16,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    paddingStart: responsivePixels(10), 
+    paddingEnd: responsivePixels(10), 
+    paddingTop: responsivePixels(5), 
+    paddingBottom: responsivePixels(5) 
   },
   leftWrapper: {
     flexDirection: "row",
@@ -28,22 +22,23 @@ export const styles = StyleSheet.create({
   imageWrapper: {
     backgroundColor: '#EAEBF1',
     borderRadius: radius.extraSmall,
-    padding: 5
+    padding: responsivePixels(5),
+    height: '100%',
   },
   image: {
-    height: 20,
-    width: 20,
+    height: responsivePixels(30),
+    width: responsivePixels(30),
   },
   titlesWrapper: {
-    marginLeft: 8,
+    marginLeft: responsivePixels(8),
   },
   title: {
-    fontSize: 18,
+    fontSize: responsivePixels(18),
   },
   subtitle: {
-    marginTop: 4,
-    // fontSize: 14,
-    color: "#A9ABB1",
+    marginTop: responsivePixels(4),
+    fontSize: responsivePixels(18),
+    // color: "#A9ABB1",
   },
   rightWrapper: {
     alignItems: "flex-end",

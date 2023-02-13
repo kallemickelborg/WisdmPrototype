@@ -1,13 +1,16 @@
 import React from 'react';
 import { Text } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { fontSizes } from '../../globalStyles';
+import { colorObject } from '../../redux/reducers/colorSlice';
 
 const makeTextInputs = ( defaultStyles ) => {
   return function({ style, children }) {
+    const colors = useSelector(colorObject);
     return (
       <Text
-        style={[ defaultStyles, style ]}
+        style={[ defaultStyles, { color: colors.quaternary }, style ]}
       > 
         {children}
       </Text>
