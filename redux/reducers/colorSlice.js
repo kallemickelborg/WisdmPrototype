@@ -8,7 +8,7 @@ export const colorSlice = createSlice({
     colorObject: colors,
   },
   reducers: {
-    setAuthToken: (state, action) => {
+    setColorObject: (state, action) => {
       state.colorObject = action.payload;
     },
   },

@@ -6,13 +6,13 @@ import NavigationButtons from '../NavigationButtons/NavigationButtons';
 
 import { LargeHeadings, SubHeadings } from '../../Text/Text';
 
-import { spacing, responsivePixels } from '../../../globalStyles';
+import { styles } from './SignInSignUpStyles';
 
 const SignInSignUp = ({ navigation }) => {
   return (
     <MainContainer>
-      <InnerContainer style={{ marginTop: responsivePixels(125) }}>
-        <LargeHeadings style={{paddingBottom: spacing.small}}>
+      <InnerContainer style={[ styles.innerContainer ]}>
+        <LargeHeadings style={[ styles.largeHeading ]}>
           {`Investing \ndoesn't have \nto be hard.`}
         </LargeHeadings>
         <SubHeadings>
