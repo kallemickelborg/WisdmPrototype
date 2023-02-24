@@ -2,13 +2,85 @@ import React from "react";
 
 import InnerContainer from "../../../containers/InnerContainer/InnerContainer";
 import NavigationButtons from "../../NavigationButtons/NavigationButtons";
-import PolarChart from "../../../chartTemplates/PolarChart/PolarChart";
+import PolarChart from "../../../chartTemplates/polarChartComponents/PolarChart/PolarChart";
 
 import { LargeHeadings, SubHeadings } from "../../../Text/Text";
 
 import { spacing, responsivePixels } from "../../../../globalStyles";
 
-import data from '../../../../sample-polar-data.json';
+// import data from '../../../../sample-polar-data.json';
+
+const data = {
+  "influencerScore": {
+    "Accuracy": 0.9,
+    "Health": 0.1,
+    "Relevance": 0.9,
+    "Impression": 0.1,
+    "Timeliness": 0.9,
+    // "Another": 0.1,
+    // "And": 0.9,
+    // "Alexandra": 0,
+    // "Something": 0.9,
+    // "Carpet": 0.4,
+    // "Get": 0.3,
+    // "It": 0.5,
+    // "Jonathan": 0.25
+  },
+  "scoreInfo": {
+    "Name": "Stock Name",
+    // Please Use HexCodes With 6 characters
+    // "BorderColor": "#F19832",
+    "BorderColor": "magenta"
+  }
+}
+
+const dataTwo = {
+  "influencerScore": {
+    "Accuracy": 0.4,
+    "Health": 0.7,
+    "Relevance": 0.2,
+    "Impression": 0.9,
+    "Timeliness": 0.1,
+    // "Another": 0.5,
+    // "And": 0.7,
+    // "Alexandra": 1,
+    // "Something": 0,
+    // "Carpet": 0.4,
+    // "Get": 0.3,
+    // "It": 0.5,
+    // "Jonathan": 0.25
+  },
+  "scoreInfo": {
+    "Name": "Stock Name",
+    // Please Use HexCodes With 6 characters
+    // "BorderColor": "#F19832",
+    "BorderColor": "teal"
+  }
+}
+
+const dataThree = {
+  "influencerScore": {
+    "Accuracy": 0.1,
+    "Health": 0.3,
+    "Relevance": 0.6,
+    "Impression": 0.2,
+    "Timeliness": 0.9,
+    // "Another": 0.3,
+    // "And": 0,
+    // "Alexandra": 0.5,
+    // "Something": 0.7,
+    // "Carpet": 0.4,
+    // "Get": 0.3,
+    // "It": 0.5,
+    // "Jonathan": 0.25
+  },
+  "scoreInfo": {
+    "Name": "Stock Name",
+    // Please Use HexCodes With 6 characters
+    // "BorderColor": "#F19832",
+    "BorderColor": "navy"
+  }
+}
 
 const OnboardingInfoStart = ({ setProgress }) => {
   return (
@@ -16,10 +88,17 @@ const OnboardingInfoStart = ({ setProgress }) => {
       <InnerContainer>
         <PolarChart
           stroke={3}
-          // labelFontSize={20}
+          toPoint={1}
+          labelFontSize={responsivePixels(16)}
           chartDiameter={responsivePixels(300)}
           hasInnerShapes={true}
-          polarData={data.influencerScore}
+          hasDivisionLines={true}
+          hasLabels={true}
+          polarData={[ data ]}
+          // chartOutlineLineColor={'teal'}
+          // chartOutlineBackgroundColor={'white'}
+          // chartOutlineCenterColor={'teal'}
+          // chartOutlineLabelColor={'orange'}
         />
         <LargeHeadings style={{ marginBottom: spacing.small }}>
           {`Learning about \ninvesting just got \neasier with \nWisdm.`}
