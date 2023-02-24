@@ -90,11 +90,11 @@ const OnboardingInfoStart = ({ setProgress }) => {
           stroke={3}
           toPoint={1}
           labelFontSize={responsivePixels(16)}
-          chartDiameter={responsivePixels(300)}
+          chartDiameter={responsivePixels(400)}
           hasInnerShapes={true}
           hasDivisionLines={true}
           hasLabels={true}
-          polarData={[ data ]}
+          polarData={[ data, dataTwo, dataThree ]}
           // chartOutlineLineColor={'teal'}
           // chartOutlineBackgroundColor={'white'}
           // chartOutlineCenterColor={'teal'}

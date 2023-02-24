@@ -5,7 +5,6 @@ import ChartOutline from "../ChartOutline/ChartOutline";
 import ChartGraphics from "../ChartGraphics/ChartGraphics";
 
 const PolarChart = ({
-  fromPoint = 0,
   toPoint = 1,
   // 1 - 999...
   stroke = 3,
@@ -27,7 +26,6 @@ const PolarChart = ({
   const buildGraphics = (dataObject, graphIndex) => {
     return (
       <ChartGraphics
-        fromPoint={fromPoint}
         toPoint={toPoint}
         key={`${dataObject.scoreInfo.Name}${graphIndex}`}
         dataObject={dataObject}

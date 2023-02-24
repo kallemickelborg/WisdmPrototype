@@ -5,19 +5,9 @@
     "Relevance": 0.8,
     "Impression": 0.1,
     "Timeliness": 0.5
-    // "Another": 0.2,
-    // "And": 0.1,
-    // "Alexandra": 0,
-    // "Something": 0.9,
-    // "Carpet": 0.4,
-    // "Get": 0.3,
-    // "It": 0.5,
-    // "Jonathan": 0.25
   },
   "scoreInfo": {
     "Name": "Stock Name",
-    // Please Use HexCodes With 6 characters
-    // "BorderColor": "#F19832",
     "BorderColor": "#A19832"
   }
 }
