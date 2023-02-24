@@ -1,12 +1,12 @@
 import * as React from "react";
-import { useRef, useMemo, useState, useEffect } from "react";
-import { View, Text, ActivityIndicator, FlatList, SafeAreaView } from "react-native";
+import { useRef, useState, useEffect } from "react";
+import { ActivityIndicator, FlatList } from "react-native";
 
 import MainContainer from '../../../containers/MainContainer/MainContainer'
 
 import { getMarketData } from "../../../../services/contentServices/cryptoService";
 
-import ListItem from "../../../ListItem/ListItem";
+import TickerButton from "../../../buttonComponents/TickerButton/TickerButton";
 
 import { styles } from "./WatchListStyles";
 
@@ -23,7 +23,7 @@ export default function Watchlist() {
   }, []);
 
   useEffect(() => {
-    // console.log(data);
+    console.log(data);
   }, [data])
 
   const fetchMarketData = async () => {
@@ -40,7 +40,7 @@ export default function Watchlist() {
         keyExtractor={(item) => item.id}
         data={data}
         renderItem={({ item }) => (
-          <ListItem
+          <TickerButton
             name={item.name}
             symbol={item.symbol}
             currentPrice={item.current_price}
