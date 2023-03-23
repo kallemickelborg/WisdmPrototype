@@ -6,10 +6,10 @@ import OnboardingInfoStart from '../OnboardingInfoStart/OnboardingInfoStart';
 import OnboardingInfoLevel from '../OnboardingInfoLevel/OnboardingInfoLevel';
 import OnboardingInfoWatchlist from '../OnboardingInfoWatchlist/OnboardingInfoWatchlist';
 import OnboardingInfoTopics from '../OnboardingInfoTopics/OnboardingInfoTopics';
-import SignUp from '../SignUp/SignUp';
+import SignUpSignIn from '../../SignUpSignIn/SignUpSignIn';
 import Trial from '../Trial/Trial';
 
-const SignUpContainer = () => {
+const SignUpContainer = ({ navigation }) => {
   const [isStart, setIsStart] = useState(true);
   const [isLevel, setIsLevel] = useState(false);
   const [isWatchlist, setIsWatchlist] = useState(false);
@@ -40,7 +40,19 @@ const SignUpContainer = () => {
         { loadPage(isLevel, isWatchlist, <OnboardingInfoLevel setProgress={setIsWatchlist}/>) }
         { loadPage(isWatchlist, isTopics, <OnboardingInfoWatchlist setProgress={setIsTopics}/>) }
         { loadPage(isTopics, isSignUp, <OnboardingInfoTopics setProgress={setIsSignUp}/>) }
-        { loadPage(isSignUp, isTrial, <SignUp setProgress={setIsTrial}/>) }
+        { loadPage(
+          isSignUp, 
+          isTrial, 
+          <SignUpSignIn 
+            setProgress={() => setIsTrial(true)}
+            componentTitle={`Create an account.`}
+            componentMessage={`Already have an account?`}
+            componentMessageButton={`Sign In`}
+            navigateToFunction={() => navigation.navigate('SignIn')}
+            isConfirmPassword={true}  
+          />
+          ) 
+        }
         { loadPage(isTrial, undefined, <Trial/>) }
     </MainContainer>
   )

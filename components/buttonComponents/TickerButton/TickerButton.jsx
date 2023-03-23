@@ -14,21 +14,24 @@ import { colorObject } from "../../../redux/reducers/colorSlice";
 
 const TickerButton = ({
   name,
-  symbol,
+  symbol = name,
   currentPrice,
-  priceChangePercentage7d,
+  priceChangePercentage,
   sparkline,
   logoUrl,
   onPress,
-  isSelected
+  isSelected,
+  wrapperStyle,
+  selectedWrapperStyle
 }) => {
   const colors = useSelector(colorObject);
-  const priceChangeColor = priceChangePercentage7d > 0 ? colors.graphPositive : colors.graphNegative;
+  const priceChangeColor = priceChangePercentage > 0 ? colors.graphPositive : colors.graphNegative;
 
   return (
     <CustomButton 
       onPress={onPress} 
-      style={[ styles.buttonWrapper ]} 
+      style={[ styles.buttonWrapper, wrapperStyle ]}
+      selectedStyle={selectedWrapperStyle} 
       isSelected={isSelected}
       >
         {/* Left Side */}
@@ -55,7 +58,7 @@ const TickerButton = ({
             ${currentPrice.toLocaleString("en-US", { currency: "USD" })}
           </SmallHeadings>
           <Text style={[styles.subtitle, { color: priceChangeColor }]}>
-            {priceChangePercentage7d.toFixed(2)}%
+            {priceChangePercentage.toFixed(2)}%
           </Text>
         </View>
     </CustomButton>

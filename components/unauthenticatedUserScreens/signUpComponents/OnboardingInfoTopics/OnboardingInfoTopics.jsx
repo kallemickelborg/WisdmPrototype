@@ -14,19 +14,22 @@ import { colorObject } from '../../../../redux/reducers/colorSlice';
 import { makeTitleIntoKey } from '../../../../functions/manipulateStrings';
 
 const INIT_TOPICS_ARRAY = [
-  { name: 'Investing Strategies', icon: require('../../../../assets/adaptive-icon.png') },
-  { name: 'Technical Analysis', icon: require('../../../../assets/adaptive-icon.png') },
-  { name: 'Day Training', icon: require('../../../../assets/adaptive-icon.png') },
-  { name: 'Long-Term Investment', icon: require('../../../../assets/adaptive-icon.png') },
-  { name: 'Market Context', icon: require('../../../../assets/adaptive-icon.png') },
-  { name: 'Tax Policies', icon: require('../../../../assets/adaptive-icon.png') },
-  { name: 'Retirement Goals', icon: require('../../../../assets/adaptive-icon.png') },
-  { name: 'Budgeting', icon: require('../../../../assets/adaptive-icon.png') },
+  { name: 'Technology', icon: require('../../../../assets/adaptive-icon.png') },
+  { name: 'Consumer Goods', icon: require('../../../../assets/adaptive-icon.png') },
+  { name: 'Healthcare', icon: require('../../../../assets/adaptive-icon.png') },
+  { name: 'Environment', icon: require('../../../../assets/adaptive-icon.png') },
+  { name: 'Energy', icon: require('../../../../assets/adaptive-icon.png') },
+  { name: 'Automotive', icon: require('../../../../assets/adaptive-icon.png') },
+  { name: 'Pharma', icon: require('../../../../assets/adaptive-icon.png') },
+  { name: 'Real Estate', icon: require('../../../../assets/adaptive-icon.png') },
+  { name: 'Science', icon: require('../../../../assets/adaptive-icon.png') },
+  { name: 'Fashion', icon: require('../../../../assets/adaptive-icon.png') },
 ]
 
 const OnboardingInfoTopics = ({ setProgress }) => {
   const [ topicsArray, setTopicsArray ] = useState(INIT_TOPICS_ARRAY);
   const [ selectedTopicsArray, setSelectedTopicsArray ] = useState([]);
+  const [ addMore, setAddMore ] = useState(false);
 
   const colors = useSelector(colorObject);
 
@@ -56,10 +59,15 @@ const OnboardingInfoTopics = ({ setProgress }) => {
           </BodyThree>
           <View style={[ styles.topicContainer ]}>
             {
-              topicsArray.map((item) => (
+              topicsArray.map((item, index) => (
                 <CustomButton
                   key={makeTitleIntoKey(item.name)}
-                  style={[ styles.outerTopicButton ]}
+                  style={[ 
+                    styles.outerTopicButton,
+                    {
+                      display: !addMore && index < 8 ? 'flex' : !!addMore ? 'flex' : 'none'
+                    }
+                  ]}
                   isSelected={isSelectedFunction(item.name, selectedTopicsArray)}
                   onPress={() => onPressTopic(item.name)}
                 >
@@ -78,8 +86,11 @@ const OnboardingInfoTopics = ({ setProgress }) => {
               ))
             }
           </View>
-          <CustomButton style={[ { backgroundColor: colors.primary } ]}>
-            <FinePrint>{`Add More`}</FinePrint>
+          <CustomButton 
+            style={[ { backgroundColor: colors.primary } ]}
+            onPress={() => setAddMore(!!addMore ? false : true)}
+          >
+            <FinePrint>{!!addMore ? `Add Less` : `Add More`}</FinePrint>
           </CustomButton>
         </InnerContainer>
       </ScrollView>

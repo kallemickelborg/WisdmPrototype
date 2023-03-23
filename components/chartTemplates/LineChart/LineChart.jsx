@@ -3,9 +3,9 @@ import { View, Text } from 'react-native';
 
 // Height is required
 const LineChart = ({
-  chartHeight,
+  chartHeight = 300,
   chartWidth = chartHeight,
-  color,
+  color = 'black',
   stroke,
   currentPrice,
   logoUrl,

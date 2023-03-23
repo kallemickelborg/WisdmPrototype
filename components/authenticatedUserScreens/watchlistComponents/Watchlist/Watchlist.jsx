@@ -44,7 +44,7 @@ export default function Watchlist() {
             name={item.name}
             symbol={item.symbol}
             currentPrice={item.current_price}
-            priceChangePercentage7d={
+            priceChangePercentage={
               item.price_change_percentage_7d_in_currency
             }
             logoUrl={item.image}
