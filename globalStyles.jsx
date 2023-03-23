@@ -29,7 +29,7 @@ export const spacing = {
 
 export const fonts = {
   primary: 'PoppinsBold',
-  secondary: Platform.OS === 'android' ? 'sans-serif' : 'Damascus',
+  secondary: Platform.OS === 'android' ? 'sans-serif' : null,
 };
 
 export const radius = {
@@ -93,12 +93,3 @@ export const fontSizes = StyleSheet.create({
     fontSize: responsivePixels(14),
   },
 })
-
-export const styles = StyleSheet.create({
-  screenContainer: {
-    backgroundColor: colors.primary,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-});

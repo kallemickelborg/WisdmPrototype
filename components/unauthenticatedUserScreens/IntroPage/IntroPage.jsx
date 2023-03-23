@@ -6,9 +6,9 @@ import NavigationButtons from '../NavigationButtons/NavigationButtons';
 
 import { LargeHeadings, SubHeadings } from '../../Text/Text';
 
-import { styles } from './SignInSignUpStyles';
+import { styles } from './IntroPageStyles';
 
-const SignInSignUp = ({ navigation }) => {
+const IntroPage = ({ navigation }) => {
   return (
     <MainContainer>
       <InnerContainer style={[ styles.innerContainer ]}>
@@ -30,4 +30,4 @@ const SignInSignUp = ({ navigation }) => {
   )
 }
 
-export default SignInSignUp;
+export default IntroPage;

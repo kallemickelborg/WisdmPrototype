@@ -1,4 +1,5 @@
 import React from "react";
+import { View, ScrollView } from "react-native";
 
 import InnerContainer from "../../../containers/InnerContainer/InnerContainer";
 import NavigationButtons from "../../NavigationButtons/NavigationButtons";
@@ -28,8 +29,6 @@ const data = {
   },
   "scoreInfo": {
     "Name": "Stock Name",
-    // Please Use HexCodes With 6 characters
-    // "BorderColor": "#F19832",
     "BorderColor": "magenta"
   }
 }
@@ -52,8 +51,6 @@ const dataTwo = {
   },
   "scoreInfo": {
     "Name": "Stock Name",
-    // Please Use HexCodes With 6 characters
-    // "BorderColor": "#F19832",
     "BorderColor": "teal"
   }
 }
@@ -76,37 +73,41 @@ const dataThree = {
   },
   "scoreInfo": {
     "Name": "Stock Name",
-    // Please Use HexCodes With 6 characters
-    // "BorderColor": "#F19832",
     "BorderColor": "navy"
   }
 }
 
 const OnboardingInfoStart = ({ setProgress }) => {
+  const chartDiameter = responsivePixels(400);
   return (
     <>
-      <InnerContainer>
-        <PolarChart
-          stroke={3}
-          toPoint={1}
-          labelFontSize={responsivePixels(16)}
-          chartDiameter={responsivePixels(400)}
-          hasInnerShapes={true}
-          hasDivisionLines={true}
-          hasLabels={true}
-          polarData={[ data, dataTwo, dataThree ]}
-          // chartOutlineLineColor={'teal'}
-          // chartOutlineBackgroundColor={'white'}
-          // chartOutlineCenterColor={'teal'}
-          // chartOutlineLabelColor={'orange'}
-        />
-        <LargeHeadings style={{ marginBottom: spacing.small }}>
-          {`Learning about \ninvesting just got \neasier with \nWisdm.`}
-        </LargeHeadings>
-        <SubHeadings>
-          {`To get started, answer a few questions to \npersonalize your experience on the app`}
-        </SubHeadings>
-      </InnerContainer>
+      <ScrollView>
+        <InnerContainer>
+          <View style={{ marginStart: '50%', transform: [{ translateX: -chartDiameter * 0.5 }], marginVertical: responsivePixels(14) }}>
+            <PolarChart
+              stroke={3}
+              toPoint={1}
+              labelFontSize={responsivePixels(16)}
+              chartDiameter={chartDiameter}
+              hasInnerShapes={true}
+              hasDivisionLines={true}
+              hasLabels={true}
+              polarData={[ data, dataTwo, dataThree ]}
+              containerStyle={{ marginTop: responsivePixels(20), position: 'relative' }}
+              // chartOutlineLineColor={'teal'}
+              // chartOutlineBackgroundColor={'white'}
+              // chartOutlineCenterColor={'pink'}
+              // chartOutlineLabelColor={'orange'}
+            />
+          </View>
+          <LargeHeadings style={{ marginBottom: spacing.small }}>
+            {`Learning about \ninvesting just got \neasier with \nWisdm.`}
+          </LargeHeadings>
+          <SubHeadings>
+            {`To get started, answer a few questions to \npersonalize your experience on the app`}
+          </SubHeadings>
+        </InnerContainer>
+      </ScrollView>
       <NavigationButtons
         topButtonTitle="Next"
         bottomButtonTitle="Skip"

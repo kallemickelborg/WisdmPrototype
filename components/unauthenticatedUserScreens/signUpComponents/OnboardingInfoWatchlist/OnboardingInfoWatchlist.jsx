@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import InnerContainer from '../../../containers/InnerContainer/InnerContainer';
@@ -17,6 +17,7 @@ import { colorObject } from '../../../../redux/reducers/colorSlice';
 const OnboardingInfoWatchlist = ({ setProgress }) => {
   const [ tickerButtonData, setTickerButtonData ] = useState();
   const [ selectedTopicsArray, setSelectedTopicsArray ] = useState([]);
+  const [ seeMore, setSeeMore ] = useState(false);
 
   const colors = useSelector(colorObject);
 
@@ -60,20 +61,30 @@ const OnboardingInfoWatchlist = ({ setProgress }) => {
                 name={item.name}
                 symbol={item.symbol}
                 currentPrice={item.current_price}
-                priceChangePercentage7d={
+                priceChangePercentage={
                   item.price_change_percentage_7d_in_currency
                 }
                 logoUrl={item.image}
                 sparkline={item.sparkline_in_7d.price}
                 onPress={() => onPressTopic(item.name)}
                 isSelected={isSelectedFunction(item.name, selectedTopicsArray)}
+                wrapperStyle={{
+                  display: !seeMore && index > 5 ? 'none' : !!seeMore ? 'flex' : null,
+                }}
               />
             )) :
+            <ActivityIndicator size="large"/>            
+          }
+          {
+            !!tickerButtonData ?
+            <CustomButton 
+              onPress={() => setSeeMore(!!seeMore ? false : true)} 
+              style={{ backgroundColor: colors.primary }}
+            >
+              <FinePrint>{!!seeMore ? `See Less` : `See more`}</FinePrint>
+            </CustomButton> :
             null
           }
-          <CustomButton style={{ backgroundColor: colors.primary }}>
-            <FinePrint>{`See more`}</FinePrint>
-          </CustomButton>
         </ScrollView>
       </InnerContainer>
       <NavigationButtons

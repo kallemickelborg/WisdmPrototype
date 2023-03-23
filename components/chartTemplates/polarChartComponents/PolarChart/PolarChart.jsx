@@ -1,15 +1,16 @@
 import React from "react";
 import { View } from 'react-native';
+import Svg, { Circle } from 'react-native-svg';
 
 import ChartOutline from "../ChartOutline/ChartOutline";
 import ChartGraphics from "../ChartGraphics/ChartGraphics";
 
 const PolarChart = ({
   toPoint = 1,
-  // 1 - 999...
+  containerStyle,
   stroke = 3,
   labelFontSize = 16,
-  chartDiameter,
+  chartDiameter = 300,
   hasInnerShapes = true,
   hasDivisionLines = true,
   hasLabels = true,
@@ -43,13 +44,10 @@ const PolarChart = ({
         position: 'relative',
         height: chartDiameter,
         width: chartDiameter,
-        borderRadius: chartDiameter,
-        backgroundColor: chartOutlineBackgroundColor,
-        borderColor: chartOutlineLineColor,
-        borderWidth: lineWidth,
         transform: [
           {rotateZ: '180deg'}, 
-        ] 
+        ],
+        ...containerStyle 
       }}
     >
       <ChartOutline
@@ -58,6 +56,7 @@ const PolarChart = ({
         lineWidth={lineWidth}
         labelFontSize={labelFontSize}
         chartDiameter={chartDiameter}
+        chartOutlineBackgroundColor={chartOutlineBackgroundColor}
         chartOutlineLineColor={chartOutlineLineColor}
         chartOutlineCenterColor={chartOutlineCenterColor}
         chartOutlineLabelColor={chartOutlineLabelColor}

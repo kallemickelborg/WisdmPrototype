@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import Svg, { Circle, Line } from 'react-native-svg';
 
 import { SubHeadings } from '../../../Text/Text';
 
@@ -11,6 +12,7 @@ const ChartOutline = ({
   lineWidth,
   labelFontSize,
   chartDiameter,
+  chartOutlineBackgroundColor,
   chartOutlineLineColor,
   chartOutlineLabelColor,
   chartOutlineCenterColor,
@@ -28,26 +30,26 @@ const ChartOutline = ({
 
   const buildInnerCircles = (key, diameter) => {
     return (
-      <View
+      <Svg
       key={key}
+      viewBox={`0 0 ${chartDiameter} ${chartDiameter}`}
       style={{
         position: 'absolute',
-        height: diameter,
-        width: diameter,
-        borderRadius: diameter,
-        backgroundColor: 'transparent',
-        borderColor: chartOutlineLineColor,
-        borderWidth: lineWidth,
-        borderStyle: 'dashed',
-        top: '50%',
-        left: '50%',
         transform: [
-          {translateX: (-diameter) * 0.5},
-          {translateY: (-diameter) * 0.5 - lineWidth * 0.5},
-        ] 
+          { translateX: chartDiameter * 0.5 - diameter * 0.5 },
+          { translateY: chartDiameter * 0.5 - diameter * 0.5 },
+        ]
       }}
-    >
-    </View>
+      >
+        <Circle
+          cx={diameter * 0.5}
+          cy={diameter * 0.5}
+          r={diameter * 0.5}
+          stroke={chartOutlineLineColor}
+          strokeWidth={lineWidth}
+          strokeDasharray={`${lineWidth * 3}`}
+        />
+      </Svg>
     )
   };
 
@@ -58,50 +60,73 @@ const ChartOutline = ({
     }}
     >
       {/* Slices of PI */}
+      <View
+        style={{
+          height: chartDiameter,
+          width: chartDiameter,
+          borderRadius: radius,
+          borderColor: chartOutlineLineColor,
+          backgroundColor: chartOutlineBackgroundColor,
+          borderWidth: lineWidth,
+          position: 'absolute'
+        }}
+      ></View>
+      <Svg viewBox={`0 0 ${chartDiameter} ${chartDiameter}`} style={{ display: hasDivisionLines ? 'flex' : 'none' }}>
+        {/* <Circle
+          cx={radius}
+          cy={radius}
+          r={radius}
+          stroke={chartOutlineLineColor}
+          strokeWidth={lineWidth}
+          fill={chartOutlineBackgroundColor}
+        /> */}
       {
         Object.keys(labelData).map((item, index) => {
           const angle = (360 / Object.keys(labelData).length) * index; 
           const x = findX(radius, angle);
           const y = findY(radius, angle);
           return (
-            <View key={item}>
-              <View
-                style={{
-                  height: radius,
-                  width: lineWidth,
-                  backgroundColor: hasDivisionLines ? chartOutlineLineColor : 'transparent',
-                  position: 'absolute',
-                  top: y - radius * 0.5 - lineWidth,
-                  left: x - (lineWidth + lineWidth * 0.5),
-                  transform: [
-                    { rotateZ: `-${angle}deg` },
-                    { translateY: (lineWidth * 0.5 - lineWidth) - radius * 0.5},
-                  ]
-                }}
-              >
-                {/* Labels */}
-                {
-                  hasLabels ?
-                  <SubHeadings 
-                    style={{
-                      color: chartOutlineLabelColor,
-                      fontSize: labelFontSize,
-                      textAlign: 'center',
-                      width: labelFontSize * 5,
-                      height: 'auto',
-                      position: 'absolute',
-                      top: radius + chartDiameter * 0.01,  
-                      transform: [ 
-                          { rotateZ: angle > 90 && angle < 270 ? `-${360}deg` : `-${180}deg` },
-                          { translateX: angle > 90 && angle < 270 ? -labelFontSize * 5 * 0.5 : labelFontSize * 5 * 0.5 }
-                        ] 
-                      }}>
-                    {item}
-                  </SubHeadings> :
-                  null
-                }
-              </View>
-            </View>
+            <Line
+              key={`${item}${index + 1}`}
+              x1={radius - lineWidth * 0.5}
+              y1={radius - lineWidth * 0.5}
+              x2={x}
+              y2={y}
+              stroke={chartOutlineLineColor}
+              strokeWidth={lineWidth}
+              strokeDasharray={`${lineWidth * 3}`}
+            />
+          )
+        })
+      }
+      </Svg>
+      {/* Labels */}
+      {
+        Object.keys(labelData).map((item, index) => {
+          const angle = (360 / Object.keys(labelData).length) * index; 
+          const x = findX(radius, angle);
+          const y = findY(radius, angle);
+          return (
+            hasLabels ?
+            <SubHeadings 
+              key={`${item}${index + 1}`}
+              style={{
+                color: chartOutlineLabelColor,
+                fontSize: labelFontSize,
+                textAlign: 'center',
+                width: labelFontSize * 100,
+                height: 'auto',
+                position: 'absolute',
+                top: y,  
+                left: x - labelFontSize * 100 * 0.5,  
+                transform: [
+                    { rotateZ: angle > 90 && angle < 270 ? `-${angle}deg` : `-${ angle + 180}deg` },
+                    { translateY: angle === 0 ? -labelFontSize * 0.5 : angle > 90 && angle < 270 ? labelFontSize * 3 * 0.5 : -labelFontSize * 2 * 0.5 }
+                  ] 
+                }}>
+              {item}
+            </SubHeadings> :
+            null
           )
         })
       }
@@ -126,10 +151,9 @@ const ChartOutline = ({
               borderColor: chartOutlineLineColor,
               borderWidth: lineWidth,
               backgroundColor: chartOutlineCenterColor,
-              // LOL not super sure about this 😅😅😅
               transform: [
-                {translateX: (-chartDiameter * 0.025) * 0.5 - (lineWidth * 1.025)},
-                {translateY: (-chartDiameter * 0.05) * 0.5 - (lineWidth * 1.05)},
+                {translateX: (-chartDiameter * 0.025) * 0.5 - (lineWidth * 0.5)},
+                {translateY: (-chartDiameter * 0.05) * 0.5 - (lineWidth * 0.5)},
               ] 
             }}
           >

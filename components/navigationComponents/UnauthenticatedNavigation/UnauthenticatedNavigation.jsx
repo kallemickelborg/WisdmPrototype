@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import SignInSignUp from "../../unauthenticatedUserScreens/SignInSignUp/SignInSignUp";
+import IntroPage from "../../unauthenticatedUserScreens/IntroPage/IntroPage";
 import SignUpContainer from "../../unauthenticatedUserScreens/signUpComponents/SignUpContainer/SignUpContainer";
 import SignInContainer from "../../unauthenticatedUserScreens/signInComponents/SignInContainer/SignInContainer";
 
@@ -21,7 +21,7 @@ const UnauthenticatedNavigation = () => {
     >
       <Tab.Screen
         name="SignInSignUp"
-        component={SignInSignUp}
+        component={IntroPage}
         options={{
           title: 'Sign In/Sign Up',
           headerTitleAlign: 'center'
