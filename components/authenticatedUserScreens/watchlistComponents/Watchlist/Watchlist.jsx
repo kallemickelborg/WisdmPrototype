@@ -32,7 +32,7 @@ export default function Watchlist() {
   };
 
   return (
-    <MainContainer style={{ marginBottom: 100 }}>
+    <MainContainer style={{ paddingBottom: 100 }}>
       {
         !!data ?
         <FlatList

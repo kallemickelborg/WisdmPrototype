@@ -13,7 +13,7 @@ const CustomButton = ({
   return (
     <TouchableOpacity
     onPress={onPress}
-    style={[ styles.button, isSelected ? selectedStyle : null, style]}
+    style={[ styles.button, isSelected ? [ styles.selectedButton, selectedStyle ] : null, style]}
     >
       {children}
   </TouchableOpacity>

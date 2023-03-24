@@ -2,6 +2,9 @@
 
 # State
 
+redux reducers and store can be found at root level: 'redux'
+configuration can be found at App.jsx
+
 1. We are using Redux for state management. This does not mean that all state has to be stored in the Redux store. Only use it when it makes sense.
 2. Most if not all of the user data will be held in the Redux store.
 
@@ -10,7 +13,8 @@
 1. Please reference the globalStyles.jsx folder at the root of the project for globalStyles. globalStyles contains the following:
    1. dimensions: An object that contains the dimensions of the viewport
    2. responsivePixels: A function that's responsible for the responsive design of the app
-   3. colors: READ ME!!! A colors object. These are the current default color values that have been chosen for the app. Please!!! do not import and use the colors from this folder. Instead please pull them from the redux store. For a reference on how to do this you can view OnboardingProgressBar.jsx file located at 'components/unauthenticatedUserScreens/SignUpComponents/OnboardingProgressBar/OnboardingProgressBar.jsx'
+   3. colors: READ ME!!! A colors object. These are the current default color values that have been chosen for the app. Please!!! do not import and use the colors from this folder. Instead please pull them from the redux store. For a reference on how to do this you can view OnboardingProgressBar.jsx file located at 'components/unauthenticatedUserScreens/SignUpComponents/OnboardingProgressBar/OnboardingProgressBar.jsx'.
+      Because of this all colors need to be directly applied to the Component NOT its StyleSheet.
    4. spacing: A spacing object that contains the general spacing used throughout the app
    5. fonts: An Object containing the fonts for the app. (fonts)
    6. radius: An Object containing the different radius used in the app
@@ -18,6 +22,7 @@
 2. All component styles aside from globalStyles can be found in their respective folders with the name of the component followed by Styles (i.e. componentNameStyles.jsx)
 3. Please use the responsivePixels() function located in the globalStyles.jsx folder when creating any custom sizing, spacing, etc...
 4. For all Font specifications and Text components please use our selection of Custom Text Components. They are located in the Text folder, and their respective styles are all located under the name fontSizes in the globalStyles.jsx folder
+5. When adding a font it must first be downloaded and then added to the root of the project at 'App.jsx' under const [fontsLoaded] = useFonts({'NameOfFont': require('path')})
 
 # Custom Buttons
 

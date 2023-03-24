@@ -1,30 +1,30 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 
 import { styles } from './StreakGraphicsContainerStyles';
 
-import { findStreakDaysInCurrentWeek, days } from '../streakLogic';
+import { findStreakDaysInCurrentWeek, days, currentDayName, currentDayValue } from '../streakLogic';
+import StreakDayCards from '../StreakDayCards/StreakDayCards';
 
 const StreakGraphicsContainer = ({
   containerStyles,
   streak,
-  day = 5
 }) => {
-
-  const streakDays = findStreakDaysInCurrentWeek(day, streak);
+  const highlightedDays = findStreakDaysInCurrentWeek(currentDayValue, streak);
   return (
-    <View style={[styles, containerStyles]}>
+    <ScrollView horizontal={true} style={[styles.streakContainer, containerStyles]}>
       {
         days.map((item) => (
-          <Text
-            key={item.name} 
-            style={{ backgroundColor: streakDays.includes(item.name) ? 'red' : 'white' }}
-          >
-            {item.name}
-          </Text>
+          <StreakDayCards
+          key={item.day}
+          name={item.day}
+          currentDayName={currentDayName}
+          dateObject={item}
+          highlightedDays={highlightedDays}
+          />
         ))
       }
-    </View>
+    </ScrollView>
   )
 }
 

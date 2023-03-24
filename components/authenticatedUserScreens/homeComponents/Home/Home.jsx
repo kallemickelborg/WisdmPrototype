@@ -11,7 +11,7 @@ import { responsivePixels, fontSizes } from "../../../../globalStyles";
 
 const userData = {
   name: 'Sam',
-  streak: 2,
+  streak: 5,
 }
 
 const Home = () => {
@@ -25,7 +25,9 @@ const Home = () => {
         <MediumHeadings> 🏃</MediumHeadings>
       </BodyThree>
       <StreakGraphicsContainer
-        containerStyles={{}}
+        containerStyles={{
+          marginVertical: 20 
+        }}
         streak={userData.streak}
       />
     </MainContainer>
