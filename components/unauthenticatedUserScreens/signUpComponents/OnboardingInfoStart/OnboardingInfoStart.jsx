@@ -95,8 +95,8 @@ const OnboardingInfoStart = ({ setProgress }) => {
               polarData={[ data, dataTwo, dataThree ]}
               containerStyle={{ marginTop: responsivePixels(20), position: 'relative' }}
               // chartOutlineLineColor={'teal'}
-              // chartOutlineBackgroundColor={'white'}
-              // chartOutlineCenterColor={'pink'}
+              // chartOutlineBackgroundColor={'orange'}
+              // chartOutlineCenterColor={'green'}
               // chartOutlineLabelColor={'orange'}
             />
           </View>

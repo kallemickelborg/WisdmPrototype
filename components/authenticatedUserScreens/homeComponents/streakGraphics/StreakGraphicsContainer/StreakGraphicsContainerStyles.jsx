@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { responsivePixels } from "../../../../../globalStyles";
 
 export const styles = StyleSheet.create({
   streakContainer: {
@@ -6,6 +7,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'nowrap',
-    height: 10,
+    maxHeight: responsivePixels(125),
   }
 });

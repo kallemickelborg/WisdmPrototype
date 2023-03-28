@@ -71,9 +71,14 @@ Located under the buttonComponents Folder 'components/buttonComponents/'
 2. LineChart: Props Guide
    1. chartHeight: defaults to 300. Determines the height of the graph
    2. chartWidth: defaults to chartHeight. Determines the length of the graph
-   3. color: defaults to transparent. Determines the color of the Graphing line
-   4. stroke: defaults to "medium" but also takes 'large' and 'small' as arguments. This determines the size of the lineHeight
-   5. IMPORTANT!!! coordinates: accepts an array of coordinate Objects. i.e. [{x: 3123, y: 3847 }, {x: 3124, y: 2847 }, {x: 3125, y: 5847 }]. These coordinates determine the graph
+   3. stroke: defaults to 3. takes a number between 1 and 999... This determines the width of the line
+   4. strokeColor: defaults to black. Takes a color to determine the color of the graph line
+   5. graphBackgroundColor: defaults to transparent. Takes a color to determine the components background color.
+   6. centralLineColor: defaults to red. Takes a color to determine the color of the line that runs through the center.
+   7. centralLineDashWidth: defaults to 5. Takes a number to determine the width of the dashes that run through the center of the graph.
+   8. isCentralLine: defaults to false. Truthy Falsy value that determines whether or not there is a line that runs through the center of the graph.
+   9. containerStyle: adds additional styles to the graphs container
+   10. IMPORTANT!!! coordinates: accepts an array of coordinate Objects. i.e. [{x: 3123, y: 3847 }, {x: 3124, y: 2847 }, {x: 3125, y: 5847 }]. These coordinates determine the graph
 
 # Navigation
 
