@@ -48,8 +48,13 @@ const TickerButton = ({
         <LineChart
           chartHeight={responsivePixels(40)}
           chartWidth={responsivePixels(125)}
-          stroke="large"
-          color={priceChangeColor}
+          stroke={75}
+          strokeColor={priceChangeColor}
+          graphBackgroundColor={'white'}
+          centralLineColor="black"
+          // centralLineDashWidth={125}
+          isCentralLine={true}
+          // containerStyle={{ borderRadius: 50 }}
           coordinates={sparkline}
         />
         {/* Right Side */}

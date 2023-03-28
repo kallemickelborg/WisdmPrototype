@@ -5,13 +5,19 @@ import { View, Text, ActivityIndicator } from "react-native";
 import MainContainer from '../../../containers/MainContainer/MainContainer';
 
 import StreakGraphicsContainer from "../streakGraphics/StreakGraphicsContainer/StreakGraphicsContainer";
+import TopInfluencerButton from "../../../buttonComponents/InfluencerMoverButton/InfluencerMoverButton";
 
 import { BodyThree, MediumHeadings, SmallHeadings } from "../../../Text/Text";
 import { responsivePixels, fontSizes } from "../../../../globalStyles";
 
+import XYObject from '../../../../sample-data.json';
+import influencerScores from '../../../../sample-polar-data.json';
+const { sparkline_in_7d: xy } = XYObject;
+const { influencerScore: score } = influencerScores;
+
 const userData = {
   name: 'Sam',
-  streak: 5,
+  streak: 3,
 }
 
 const Home = () => {
@@ -26,10 +32,19 @@ const Home = () => {
       </BodyThree>
       <StreakGraphicsContainer
         containerStyles={{
-          marginVertical: 20 
+          marginVertical: 20,
         }}
         streak={userData.streak}
       />
+      <TopInfluencerButton
+        coordinates={xy.price}
+        // influencerScore={score}
+      />
+      {/* <LineChart
+        containerStyle={{position: 'absolute', top: 300, left: 20}}
+        chartWidth={400}
+        coordinates={xy.price}
+      /> */}
     </MainContainer>
   );
 }

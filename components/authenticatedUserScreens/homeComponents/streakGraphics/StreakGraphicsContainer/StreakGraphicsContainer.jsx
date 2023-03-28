@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, SafeAreaView } from 'react-native';
 
 import { styles } from './StreakGraphicsContainerStyles';
 
@@ -12,19 +12,21 @@ const StreakGraphicsContainer = ({
 }) => {
   const highlightedDays = findStreakDaysInCurrentWeek(currentDayValue, streak);
   return (
-    <ScrollView horizontal={true} style={[styles.streakContainer, containerStyles]}>
-      {
-        days.map((item) => (
-          <StreakDayCards
-          key={item.day}
-          name={item.day}
-          currentDayName={currentDayName}
-          dateObject={item}
-          highlightedDays={highlightedDays}
-          />
-        ))
-      }
-    </ScrollView>
+    <SafeAreaView style={[styles.streakContainer, containerStyles]}>
+      <ScrollView horizontal={true} style={[]}>
+        {
+          days.map((item) => (
+            <StreakDayCards
+            key={item.day}
+            name={item.day}
+            currentDayName={currentDayName}
+            dateObject={item}
+            highlightedDays={highlightedDays}
+            />
+          ))
+        }
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

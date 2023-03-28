@@ -1,39 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
+import { Svg, Line, Path } from 'react-native-svg';
 
-// Height is required
 const LineChart = ({
   chartHeight = 300,
   chartWidth = chartHeight,
-  color = 'black',
-  stroke,
-  currentPrice,
-  logoUrl,
-  name,
-  symbol,
-  priceChangePercentage7d,
+  stroke = 3,
+  strokeColor = 'black',
+  graphBackgroundColor = 'transparent',
+  centralLineColor = 'red',
+  centralLineDashWidth = 5,
+  isCentralLine = false,
+  containerStyle,
   coordinates
 }) => {
   const [points, setPoints] = useState({});
   const [totalDifferenceY, setTotalDifferenceY] = useState(0);
   const [totalDifferenceX, setTotalDifferenceX] = useState(0);
-  const unitSize = 
-    stroke === 'large' ? 
-    ((chartHeight + chartWidth) * 0.01) * 0.75 : 
-      stroke === 'small' ? ((chartHeight + chartWidth) * 0.01) * 0.25 : 
-      ((chartHeight + chartWidth) * 0.01) * 0.5;
+  const strokeWidth = ((chartHeight + chartWidth) * 0.01) * (`0.${stroke}` * 1)
 
   const getDifference = (highPoint, lowPoint) => highPoint - lowPoint;
-
-  const getAngle = (y1, y2, x1, x2) => {
-    const angle = Math.atan2( getYAxis(y2) - getYAxis(y1), getXAxis(x2) - getXAxis(x1) ) * ( 180 / Math.PI );
-    return angle;
-  }
-
-  const getDistance = (y1, y2, x1, x2) => {
-    const distance = Math.hypot(getXAxis(x2) - getXAxis(x1), getYAxis(y2) - getYAxis(y1));
-    return distance;
-  }
   
   const getYAxis = ( yValue ) => {
     const percent = getDifference(points.yHigh, yValue) / totalDifferenceY;
@@ -67,257 +53,58 @@ const LineChart = ({
     getPoints()
   }, [])
   return (
-    <View style={{ height: chartHeight, width: chartWidth, position: 'relative' }}>
-      {
-        !!points && !!totalDifferenceY && !!totalDifferenceX ?
-        coordinates.map((item, index) => {
-          const distance = coordinates[index + 1] ? getDistance(item.y, coordinates[index + 1].y, item.x, coordinates[index + 1].x) + unitSize / 2 : 0;
-          const yMid = coordinates[index + 1] ? (getYAxis(item.y) + getYAxis(coordinates[index + 1].y)) / 2 : 0;
-          const xMid = coordinates[index + 1] ? (getXAxis(item.x) + getXAxis(coordinates[index + 1].x)) / 2 : 0;
-          const angle = coordinates[index + 1] ? `${-getAngle(item.y, coordinates[index + 1].y, item.x, coordinates[index + 1].x)}deg` : `0deg`;
-          return (
-            <View
-              key={`${item.x}${item.y}`}
-            >
-              {/* Points */}
-              <View 
-                style={{ 
-                  position: 'absolute', 
-                  top: getYAxis(item.y), 
-                  right: getXAxis(item.x) - unitSize / 2, 
-                  height: unitSize,
-                  width: unitSize,
-                  borderRadius: 50, 
-                  backgroundColor: color,
-                }}
-              >
-              </View>
-              {/* Lines */}
-              <View
-                style={{ 
-                  position: 'absolute', 
-                  top: yMid, 
-                  right: xMid - (distance/2), 
-                  height: unitSize,
-                  width: distance,
-                  borderRadius: 50, 
-                  backgroundColor: color,
-                  transform: [
-                    { rotateZ: angle },
-                  ]
-                }}
-              >
-              </View>
-            </View>
-        )}) :
-        null
-      }
+    <View style={[ 
+        { height: chartHeight, 
+          width: chartWidth, 
+          backgroundColor: graphBackgroundColor, 
+          transform: [ 
+            // {rotateY: '180deg'}, 
+          ],
+          position: 'relative'
+        },
+         containerStyle 
+      ]}>
+      <Svg height={chartHeight} width={chartWidth} style={{ position: 'absolute' }}>
+        {
+          !!points && !!totalDifferenceX && !!totalDifferenceY ?
+          <Path 
+            d={
+              `${coordinates.map((item, index) => {
+              const xOne = getXAxis(item.x);
+              const yOne = getYAxis(item.y);
+                return `
+                  ${index === 0 ? 'M' : 'L'} ${xOne} ${yOne}`
+                })
+              .join(' ')} `
+            }
+
+            // d={
+            //   "M 1.0532544378698 305.5124640879527 L 3.1597633135822 284.45264231303247 L 5.2662721892947 288.199033563843 L 7.37278106515 285.49712081550007 L 9.4792899408624 276.7750768052806 L 11.585798816575 265.2302041308454 L 13.692307692287 290.6387997897715 L 15.798816568 287.0237850799943 L 17.905325443855 306.94130700609674 L 20.011834319567 294.1114289278398 L 22.11834319528 278.9173815358829 L 24.224852070992 274.3293557122049 L 26.331360946705 272.48451837516023 L 28.437869822417 253.63437438486798 L 30.544378698272 222.55432414845632 L 32.650887573985 236.0518935446803 L 34.757396449697 229.6219882573669 L 36.86390532541 213.36809592444052 L 38.970414201122 214.7610643006651 L 41.076923076978 192.53775418365316 L 43.18343195269 163.83503716515864 L 45.289940828402 124.11941739801279 L 47.396449704115 119.207250973442 L 49.502958579827 134.3538817564908 L 51.609467455683 126.25174350705927 L 53.715976331395 126.22350269352512 L 55.822485207107 135.5666954202513 L 57.92899408282 140.5450901008256 L 60.035502958532 122.01257866523397 L 62.142011834388 89.73400846190586 L 64.2485207101 54.497275365424 L 66.355029585812 84.41962797420092 L 68.461538461525 100.6307311086118 L 70.568047337237 116.97973591897969 L 72.67455621295 139.44781580004877 L 74.781065088805 114.81670041266392 L 76.887573964517 125.72329366307483 L 78.99408284023 123.86721490411458 L 81.100591715942 99.28707711688415 L 83.207100591655 93.99908841632688 L 85.31360946751 96.36377036245528 L 87.420118343222 105.59853644389952 L 89.526627218935 116.23933499154657 L 91.633136094647 113.82666955122198 L 93.73964497036 216.4382143502093 L 95.846153846215 168.20164841064513 L 97.952662721928 191.89052712671653 L 100.05917159764 185.91540557229285 L 102.16568047335 176.2040778509462 L 104.27218934906 175.01956372813447 L 106.37869822492 197.18049346018978 L 108.48520710063 184.62601959786411 L 110.59171597634 189.60221933905126 L 112.69822485206 190.68922284385062 L 114.80473372777 163.94743497047995 L 116.91124260348 157.8300187955479 L 119.01775147934 132.3085004381826 L 121.12426035505 110.62164743542155 L 123.23076923076 111.96373479378491 L 125.33727810647 115.41842222519685 L 127.44378698219 120.47686987012605 L 129.55029585804 124.4269547542971 L 131.65680473376 139.5956079387168 L 133.76331360947 96.85326924813887 L 135.86982248518 75.58799977550106 L 137.97633136089 78.05627182225939 L 140.08284023675 96.77902163814329 L 142.18934911246 130.7670089284995 L 144.29585798817 107.48226359195363 L 146.40236686388 132.67561336289828 L 148.5088757396 132.40768442940947 L 150.61538461545 127.23831160672452 L 152.72189349117 122.63043501201 L 154.82840236688 132.1836926788775 L 156.93491124259 134.17291713955083 L 159.0414201183 145.69115384465502 L 161.14792899401 149.3175894582214 L 163.25443786987 156.87938471586276 L 165.36094674558 147.49328605797754 L 167.46745562129 151.53688587011348 L 169.57396449701 142.44819698212228 L 171.68047337272 170.27966587775816 L 173.78698224858 171.66656164304567 L 175.89349112429 173.30107521832085 L 178 170.86320200767494 L 180.10650887571 170.54029584120755 L 182.21301775142 169.98828643860512 L 184.31952662728 176.88361973400308 L 186.42603550299 166.3910833355317 L 188.53254437871 167.01251083595315 L 190.63905325442 175.56479223100914 L 192.74556213013 176.30554778594427 L 194.85207100599 161.99736322985916 L 196.9585798817 169.84604762985535 L 199.06508875741 183.36887027405174 L 201.17159763312 181.05923059532117 L 203.27810650883 177.6276556030553 L 205.38461538455 174.02384531161846 L 207.4911242604 179.3754844575448 L 209.59763313612 179.75073093587415 L 211.70414201183 180.05544516098712 L 213.81065088754 171.16307107862755 L 215.91715976325 181.13390042839603 L 218.02366863911 169.8879082506043 L 220.13017751482 169.07724190997027 L 222.23668639053 176.64687481319788 L 224.34319526624 176.06212354980659 L 226.44970414196 177.78457457099054 L 228.55621301781 181.73703774017395 L 230.66272189353 185.82730938032296 L 232.76923076924 183.82701888423267 L 234.87573964495 179.84880310449802 L 236.98224852066 178.21601502429564 L 239.08875739652 178.55691424350255 L 241.19526627223 192.45217773494446 L 243.30177514794 208.97097833612824 L 245.40828402366 223.2472475065302 L 247.51479289937 211.37919155531085 L 249.62130177508 210.58371181620174 L 251.72781065094 213.45931093137472 L 253.83431952665 214.13980033107327 L 255.94082840236 213.1800063285641 L 258.04733727807 205.3079801568689 L 260.15384615378 196.82630286397085 L 262.26035502964 203.17154991555674 L 264.36686390535 197.7289544255905 L 266.47337278107 189.08772812157517 L 268.57988165678 202.1076857792596 L 270.68639053249 198.97999792138376 L 272.79289940835 186.26752896230764 L 274.89940828406 183.52243687480208 L 277.00591715977 193.2065101660928 L 279.11242603548 191.9861042669419 L 281.21893491119 187.80205044050834 L 283.32544378705 177.37369752230123 L 285.43195266276 200.2985665847982 L 287.53846153848 200.32260783578386 L 289.64497041419 215.52449034893266 L 291.7514792899 208.52225627207395 L 293.85798816561 205.56792620455525 L 295.96449704147 206.90438572532753 L 298.07100591718 219.98251251422627 L 300.17751479289 213.10330302865952 L 302.28402366861 198.45702003965386 L 304.39053254432 204.23112170638012 L 306.49704142017 209.92921442958652 L 308.60355029589 226.91985884202958 L 310.7100591716 220.42821889373144 L 312.81656804731 220.00231611200257 L 314.92307692302 220.81599132576656 L 317.02958579888 242.7346150087387 L 319.13609467459 236.31911683388154 L 321.2426035503 235.97975828862639 L 323.34911242602 230.96761709321416 L 325.45562130173 226.79759834767583 L 327.56213017758 225.03150268166624 L 329.6686390533 217.8406957402167 L 331.77514792901 213.20910266609604 L 333.88165680472 218.27499713172864 L 335.98816568043 239.99814587857924 L 338.09467455615 266.1936034096078 L 340.201183432 264.9849254566474 L 342.30769230771 276.5661506115308 L 344.41420118343 265.5960590679124 L 346.52071005914 276.6231883276813 L 348.62721893485 269.5479301405789 L 350.73372781071 259.8917440195874 L 352.84023668642 261.76850226781954 L 354.94674556213 252.11150961207193"
+            // }
+
+            fill="none" 
+            stroke={strokeColor}
+            strokeWidth={strokeWidth} 
+          /> :
+          null
+        }
+        {
+          isCentralLine ?
+          <Line
+            x1={0}
+            y1={chartHeight * 0.5}
+            x2={chartWidth}
+            y2={chartHeight * 0.5}
+            stroke={centralLineColor}
+            strokeWidth={strokeWidth}
+            strokeDasharray={centralLineDashWidth}
+          /> :
+          null
+        }
+      </Svg>
+
     </View>
   )
 }
 
 export default LineChart;
-// import React, { useState, useEffect } from 'react';
-// import { View, Text } from 'react-native';
-
-// // Height is required
-// const LineChart = ({
-//   chartHeight,
-//   chartWidth = chartHeight,
-//   color,
-//   hasBorders,
-//   stroke,
-//   currentPrice,
-//   logoUrl,
-//   name,
-//   symbol,
-//   priceChangePercentage7d,
-//   coordinates
-// }) => {
-//   const [points, setPoints] = useState({});
-//   const [totalDifferenceY, setTotalDifferenceY] = useState(0);
-//   const [totalDifferenceX, setTotalDifferenceX] = useState(0);
-//   const unitSize = 
-//     stroke === 'large' ? 
-//     ((chartHeight + chartWidth) * 0.01) * 0.75 : 
-//       stroke === 'small' ? ((chartHeight + chartWidth) * 0.01) * 0.25 : 
-//       ((chartHeight + chartWidth) * 0.01) * 0.5;
-
-//   const getDifference = (highPoint, lowPoint) => highPoint - lowPoint;
-
-//   const getAngle = (y1, y2, x1, x2) => {
-//     const angle = Math.atan2( getYAxis(y2) - getYAxis(y1), getXAxis(x2) - getXAxis(x1) ) * ( 180 / Math.PI );
-//     return angle;
-//   }
-
-//   const getDistance = (y1, y2, x1, x2) => {
-//     const distance = Math.hypot(getXAxis(x2) - getXAxis(x1), getYAxis(y2) - getYAxis(y1));
-//     return distance;
-//   }
-  
-//   const getYAxis = ( yValue ) => {
-//     const percent = getDifference(points.yHigh, yValue) / totalDifferenceY;
-//     const pointY = percent * chartHeight;
-//     return pointY;
-//   }
-
-//   const getXAxis = ( xValue ) => {
-//     const percent = getDifference(points.xHigh, xValue) / totalDifferenceX;
-//     const pointX = percent * chartWidth;
-//     return pointX;
-//   }
-  
-//   const getPoints = () => {
-//     let xHigh = 0;
-//     let yHigh = 0;
-//     let yLow = coordinates[0].y;
-//     let xLow = coordinates[0].x;
-//     coordinates.map((item) => {
-//       item.x > xHigh ? xHigh = item.x : null;
-//       item.y > yHigh ? yHigh = item.y : null;
-//       item.x < xLow ? xLow = item.x : null;
-//       item.y < yLow ? yLow = item.y : null;
-//     }) 
-//     setPoints({ xHigh, yHigh, xLow, yLow });
-//     setTotalDifferenceX(getDifference(xHigh, xLow));
-//     setTotalDifferenceY(getDifference(yHigh, yLow));
-//   }
-
-//   useEffect(() => {
-//     getPoints()
-//   }, [])
-//   return (
-//     <View style={{ height: chartHeight, width: chartWidth, position: 'relative' }}>
-//       {
-//         !!hasBorders ?
-//         <>
-//           {/* Border Right */}
-//           <View
-//             style={{
-//               position: 'absolute',
-//               height: chartHeight + (unitSize * 2),
-//               width: unitSize * 0.5,
-//               right: -unitSize,
-//               top: -unitSize,
-//               backgroundColor: '#D9D9D9',
-//             }}
-//           >
-//           </View>
-//           {/* Border Left */}
-//           <View
-//             style={{
-//               position: 'absolute',
-//               height: chartHeight + (unitSize * 2),
-//               width: unitSize * 0.5,
-//               left: -unitSize,
-//               top: -unitSize,
-//               backgroundColor: '#D9D9D9',
-//             }}
-//           >
-//           </View>
-//           {/* Border Bottom */}
-//           <View
-//             style={{
-//               position: 'absolute',
-//               height: unitSize * 0.5,
-//               width: chartWidth + (unitSize * 2),
-//               right: -unitSize,
-//               top: chartHeight + unitSize,
-//               backgroundColor: '#D9D9D9'
-//             }}
-//           >
-//           </View>
-//           {/* Border Top */}
-//           <View
-//             style={{
-//               position: 'absolute',
-//               height: unitSize * 0.5,
-//               width: chartWidth + (unitSize * 2),
-//               right: -unitSize,
-//               top: -unitSize,
-//               backgroundColor: '#D9D9D9'
-//             }}
-//           >
-//           </View>
-//         </> :
-//         null
-//       }
-//       {
-//         !!points && !!totalDifferenceY && !!totalDifferenceX ?
-//         coordinates.map((item, index) => {
-//           const distance = coordinates[index + 1] ? getDistance(item.y, coordinates[index + 1].y, item.x, coordinates[index + 1].x) + unitSize / 2 : 0;
-//           const yMid = coordinates[index + 1] ? (getYAxis(item.y) + getYAxis(coordinates[index + 1].y)) / 2 : 0;
-//           const xMid = coordinates[index + 1] ? (getXAxis(item.x) + getXAxis(coordinates[index + 1].x)) / 2 : 0;
-//           const angle = coordinates[index + 1] ? `${-getAngle(item.y, coordinates[index + 1].y, item.x, coordinates[index + 1].x)}deg` : `0deg`;
-//           const timeObject = new Date(item.x * 1000);
-//           // const time = `${timeObject.getHours() + 1} ${timeObject.getDate()} ${timeObject.getMonth() + 1} ${timeObject.getFullYear()}`;
-//           const time = `${timeObject.getDate()}`;
-//           return (
-//             <View
-//               key={`${item.x}${item.y}`}
-//             >
-//               {
-//                 (index + 1) % 10 === 0 && !!hasBorders ?
-//                 <>
-//                   <View
-//                     style={{
-//                       position: 'absolute',
-//                       height: chartHeight + (unitSize * 2),
-//                       width: unitSize * 0.5,
-//                       right: getXAxis(item.x) - unitSize / 2,
-//                       top: -unitSize,
-//                       backgroundColor: '#D9D9D9',
-//                     }}
-//                   >
-//                   </View>
-//                   <View
-//                     style={{
-//                       position: 'absolute',
-//                       right: getXAxis(item.x) - unitSize / 2,
-//                       top: chartHeight + (unitSize * 2) + index,
-//                       backgroundColor: '#D9D9D9',
-//                     }}
-//                   >
-//                     <Text>{time}</Text>
-//                   </View>
-//                 </> :
-//                 null
-//               }
-//               {/* Points */}
-//               <View 
-//                 style={{ 
-//                   position: 'absolute', 
-//                   top: getYAxis(item.y), 
-//                   right: getXAxis(item.x) - unitSize / 2, 
-//                   height: unitSize,
-//                   width: unitSize,
-//                   borderRadius: 50, 
-//                   backgroundColor: color,
-//                 }}
-//               >
-//               </View>
-//               {/* Lines */}
-//               <View
-//                 style={{ 
-//                   position: 'absolute', 
-//                   top: yMid, 
-//                   right: xMid - (distance/2), 
-//                   height: unitSize,
-//                   width: distance,
-//                   borderRadius: 50, 
-//                   backgroundColor: color,
-//                   transform: [
-//                     { rotateZ: angle },
-//                   ]
-//                 }}
-//               >
-//               </View>
-//             </View>
-//         )}) :
-//         null
-//       }
-//     </View>
-//   )
-// }
-
-// export default LineChart;

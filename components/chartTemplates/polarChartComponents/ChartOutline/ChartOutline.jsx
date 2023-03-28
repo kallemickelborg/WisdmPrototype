@@ -45,6 +45,7 @@ const ChartOutline = ({
           cx={diameter * 0.5}
           cy={diameter * 0.5}
           r={diameter * 0.5}
+          fill={'transparent'}
           stroke={chartOutlineLineColor}
           strokeWidth={lineWidth}
           strokeDasharray={`${lineWidth * 3}`}

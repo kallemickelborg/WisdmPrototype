@@ -37,7 +37,6 @@ export const getMarketData = async () => {
     );
     const data = response.data;
     const formatedResponse = formatMarketData(data);
-
     return formatedResponse;
   } catch (error) {
     console.log(error.message);
