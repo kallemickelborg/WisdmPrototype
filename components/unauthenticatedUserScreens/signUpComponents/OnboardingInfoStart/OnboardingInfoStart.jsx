@@ -105,8 +105,8 @@ const OnboardingInfoStart = ({ setProgress }) => {
                 position: "relative",
               }}
               // chartOutlineLineColor={'teal'}
-              // chartOutlineBackgroundColor={'white'}
-              // chartOutlineCenterColor={'pink'}
+              // chartOutlineBackgroundColor={'orange'}
+              // chartOutlineCenterColor={'green'}
               // chartOutlineLabelColor={'orange'}
             />
           </View>
