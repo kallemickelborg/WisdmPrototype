@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 
 import InnerContainer from "../../../containers/InnerContainer/InnerContainer";
 import NavigationButtons from "../../NavigationButtons/NavigationButtons";
@@ -8,16 +8,17 @@ import PolarChart from "../../../chartTemplates/polarChartComponents/PolarChart/
 import { LargeHeadings, SubHeadings } from "../../../Text/Text";
 
 import { spacing, responsivePixels } from "../../../../globalStyles";
+import { Polygon, Svg } from "react-native-svg";
 
 // import data from '../../../../sample-polar-data.json';
 
 const data = {
-  "influencerScore": {
-    "Accuracy": 0.9,
-    "Health": 0.1,
-    "Relevance": 0.9,
-    "Impression": 0.1,
-    "Timeliness": 0.9,
+  influencerScore: {
+    Accuracy: 0.9,
+    Health: 0.1,
+    Relevance: 0.9,
+    Impression: 0.1,
+    Timeliness: 0.9,
     // "Another": 0.1,
     // "And": 0.9,
     // "Alexandra": 0,
@@ -27,19 +28,19 @@ const data = {
     // "It": 0.5,
     // "Jonathan": 0.25
   },
-  "scoreInfo": {
-    "Name": "Stock Name",
-    "BorderColor": "magenta"
-  }
-}
+  scoreInfo: {
+    Name: "Stock Name",
+    BorderColor: "magenta",
+  },
+};
 
 const dataTwo = {
-  "influencerScore": {
-    "Accuracy": 0.4,
-    "Health": 0.7,
-    "Relevance": 0.2,
-    "Impression": 0.9,
-    "Timeliness": 0.1,
+  influencerScore: {
+    Accuracy: 0.4,
+    Health: 0.7,
+    Relevance: 0.2,
+    Impression: 0.9,
+    Timeliness: 0.1,
     // "Another": 0.5,
     // "And": 0.7,
     // "Alexandra": 1,
@@ -49,19 +50,19 @@ const dataTwo = {
     // "It": 0.5,
     // "Jonathan": 0.25
   },
-  "scoreInfo": {
-    "Name": "Stock Name",
-    "BorderColor": "teal"
-  }
-}
+  scoreInfo: {
+    Name: "Stock Name",
+    BorderColor: "teal",
+  },
+};
 
 const dataThree = {
-  "influencerScore": {
-    "Accuracy": 0.1,
-    "Health": 0.3,
-    "Relevance": 0.6,
-    "Impression": 0.2,
-    "Timeliness": 0.9,
+  influencerScore: {
+    Accuracy: 0.1,
+    Health: 0.3,
+    Relevance: 0.6,
+    Impression: 0.2,
+    Timeliness: 0.9,
     // "Another": 0.3,
     // "And": 0,
     // "Alexandra": 0.5,
@@ -71,11 +72,11 @@ const dataThree = {
     // "It": 0.5,
     // "Jonathan": 0.25
   },
-  "scoreInfo": {
-    "Name": "Stock Name",
-    "BorderColor": "navy"
-  }
-}
+  scoreInfo: {
+    Name: "Stock Name",
+    BorderColor: "navy",
+  },
+};
 
 const OnboardingInfoStart = ({ setProgress }) => {
   const chartDiameter = responsivePixels(400);
@@ -83,7 +84,13 @@ const OnboardingInfoStart = ({ setProgress }) => {
     <>
       <ScrollView>
         <InnerContainer>
-          <View style={{ marginStart: '50%', transform: [{ translateX: -chartDiameter * 0.5 }], marginVertical: responsivePixels(14) }}>
+          <View
+            style={{
+              marginStart: "50%",
+              transform: [{ translateX: -chartDiameter * 0.5 }],
+              marginVertical: responsivePixels(14),
+            }}
+          >
             <PolarChart
               stroke={3}
               toPoint={1}
@@ -92,8 +99,11 @@ const OnboardingInfoStart = ({ setProgress }) => {
               hasInnerShapes={true}
               hasDivisionLines={true}
               hasLabels={true}
-              polarData={[ data, dataTwo, dataThree ]}
-              containerStyle={{ marginTop: responsivePixels(20), position: 'relative' }}
+              polarData={[data, dataTwo, dataThree]}
+              containerStyle={{
+                marginTop: responsivePixels(20),
+                position: "relative",
+              }}
               // chartOutlineLineColor={'teal'}
               // chartOutlineBackgroundColor={'white'}
               // chartOutlineCenterColor={'pink'}
@@ -115,7 +125,7 @@ const OnboardingInfoStart = ({ setProgress }) => {
         // bottomButtonOnPress={}
       />
     </>
-  )
-}
+  );
+};
 
 export default OnboardingInfoStart;

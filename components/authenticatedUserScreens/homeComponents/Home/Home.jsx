@@ -8,6 +8,7 @@ import StreakGraphicsContainer from "../streakGraphics/StreakGraphicsContainer/S
 
 import { BodyThree, MediumHeadings, SmallHeadings } from "../../../Text/Text";
 import { responsivePixels, fontSizes } from "../../../../globalStyles";
+import SavedMedia from "../SavedMedia/SavedMedia";
 
 const userData = {
   name: 'Sam',
@@ -30,6 +31,7 @@ const Home = () => {
         }}
         streak={userData.streak}
       />
+		<SavedMedia/>
     </MainContainer>
   );
 }
