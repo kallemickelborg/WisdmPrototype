@@ -7,6 +7,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'nowrap',
-    maxHeight: responsivePixels(125),
+    maxHeight: responsivePixels(120),
   }
 });

@@ -1,14 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, SafeAreaView, ScrollView } from "react-native";
+
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import MainContainer from '../../../containers/MainContainer/MainContainer';
 
 import StreakGraphicsContainer from "../streakGraphics/StreakGraphicsContainer/StreakGraphicsContainer";
-import TopInfluencerButton from "../../../buttonComponents/InfluencerMoverButton/InfluencerMoverButton";
+import InfluencerMoverButton from "../../../buttonComponents/InfluencerMoverButton/InfluencerMoverButton";
 
 import { BodyThree, MediumHeadings, SmallHeadings } from "../../../Text/Text";
-import { responsivePixels, fontSizes } from "../../../../globalStyles";
+import { responsivePixels, fontSizes, spacing, colors } from "../../../../globalStyles";
 
 import XYObject from '../../../../sample-data.json';
 import influencerScores from '../../../../sample-polar-data.json';
@@ -20,31 +22,63 @@ const userData = {
   streak: 3,
 }
 
+const makeTopTitle = (title, onPress) => 
+  <SmallHeadings style={{ marginBottom: spacing.small }}>
+    {`${title} `}
+    <Ionicons onPress={() => console.log('This is information!!!')} name={'information-circle-outline'} size={responsivePixels(25)}/>
+  </SmallHeadings>
+;
 const Home = () => {
   return (
     <MainContainer>
-      <MediumHeadings>{`Hello, ${userData.name}`}</MediumHeadings>
-      <BodyThree style={{ marginTop: -fontSizes.bodyThree.fontSize }}>
-        You are on a
-        <SmallHeadings>{` ${userData.streak} `}</SmallHeadings>
-        day learning streak!
-        <MediumHeadings> 🏃</MediumHeadings>
-      </BodyThree>
-      <StreakGraphicsContainer
-        containerStyles={{
-          marginVertical: 20,
-        }}
-        streak={userData.streak}
-      />
-      <TopInfluencerButton
-        coordinates={xy.price}
-        // influencerScore={score}
-      />
-      {/* <LineChart
-        containerStyle={{position: 'absolute', top: 300, left: 20}}
-        chartWidth={400}
-        coordinates={xy.price}
-      /> */}
+      <SafeAreaView>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'start' }}>
+            <View>
+              <MediumHeadings>{`Hello, ${userData.name}`}</MediumHeadings>
+                <BodyThree style={{ marginTop: -fontSizes.bodyThree.fontSize }}>
+                  You are on a
+                  <SmallHeadings>{` ${userData.streak} `}</SmallHeadings>
+                  day learning streak!
+                  <MediumHeadings> 🏃</MediumHeadings>
+                </BodyThree>
+            </View>
+            <Ionicons 
+              onPress={() => console.log('This is settings!!!')} 
+              name={'settings-outline'} 
+              size={responsivePixels(30)} 
+              style={{ color: colors.quaternary, opacity: 0.2 }}
+            />
+          </View>
+          <StreakGraphicsContainer
+            containerStyles={{
+              marginTop: spacing.large,
+              marginBottom: spacing.large * 2
+            }}
+            streak={userData.streak}
+          />
+          <SafeAreaView style={{ flexDirection: 'row', flexWrap: 'nowrap' }}>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+              <View>
+                {makeTopTitle('Your Top Influencer')}
+                <InfluencerMoverButton
+                  coordinates={xy.price}
+                  isInfluencer={true}
+                  containerStyles={{ marginEnd: spacing.small }}
+                />
+              </View>
+              <View>
+                {makeTopTitle('Your Top Mover')}
+                <InfluencerMoverButton
+                  coordinates={xy.price}
+                  // isInfluencer={true}
+                  containerStyles={{ marginStart: spacing.small }}
+                />
+              </View>
+            </ScrollView>
+          </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
     </MainContainer>
   );
 }

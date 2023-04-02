@@ -14,7 +14,7 @@ import { colorObject } from "../../../redux/reducers/colorSlice";
 
 const TickerButton = ({
   name,
-  symbol = name,
+  abbreviation = name,
   currentPrice,
   priceChangePercentage,
   sparkline,
@@ -40,7 +40,7 @@ const TickerButton = ({
             <Image source={{ uri: logoUrl }} style={styles.image} />
           </View>
           <View style={styles.titlesWrapper}>
-            <SmallHeadings>{symbol.toUpperCase()}</SmallHeadings>
+            <SmallHeadings>{abbreviation.toUpperCase()}</SmallHeadings>
             <BodyThree>{name.length > 10 ? `${name.slice(0, 9)}...` : name}</BodyThree>
           </View>
         </View>
@@ -50,11 +50,6 @@ const TickerButton = ({
           chartWidth={responsivePixels(125)}
           stroke={75}
           strokeColor={priceChangeColor}
-          graphBackgroundColor={'white'}
-          centralLineColor="black"
-          // centralLineDashWidth={125}
-          isCentralLine={true}
-          // containerStyle={{ borderRadius: 50 }}
           coordinates={sparkline}
         />
         {/* Right Side */}
