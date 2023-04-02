@@ -8,5 +8,6 @@ export const styles = StyleSheet.create({
     paddingTop: dimensions.windowHeight * 0.09,
     paddingBottom: spacing.large,
     paddingHorizontal: spacing.large,
+    position: 'relative'
   }
 })

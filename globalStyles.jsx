@@ -24,6 +24,7 @@ export const colors = {
 
 export const spacing = {
   large: responsivePixels(25),
+  medium: responsivePixels(20),
   small: responsivePixels(14),
 }
 

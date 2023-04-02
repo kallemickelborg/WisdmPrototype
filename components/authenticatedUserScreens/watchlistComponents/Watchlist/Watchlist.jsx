@@ -23,7 +23,7 @@ export default function Watchlist() {
   }, []);
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
   }, [data])
 
   const fetchMarketData = async () => {

@@ -13,7 +13,7 @@ const StreakGraphicsContainer = ({
   const highlightedDays = findStreakDaysInCurrentWeek(currentDayValue, streak);
   return (
     <SafeAreaView style={[styles.streakContainer, containerStyles]}>
-      <ScrollView horizontal={true} style={[]}>
+      <ScrollView horizontal={true}  showsHorizontalScrollIndicator={false}>
         {
           days.map((item) => (
             <StreakDayCards

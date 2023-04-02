@@ -6,9 +6,8 @@ export const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: 'column',
     width: responsivePixels(75),
-    height: responsivePixels(100) + spacing.large,
+    height: '100%',
     marginHorizontal: spacing.small * 0.5,
-    paddingHorizontal: spacing.small,
     borderRadius: radius.extraLarge + radius.medium,
     borderWidth: 1
   },
