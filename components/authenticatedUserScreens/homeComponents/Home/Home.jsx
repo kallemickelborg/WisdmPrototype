@@ -11,6 +11,7 @@ import InfluencerMoverButton from "../../../buttonComponents/InfluencerMoverButt
 
 import { BodyThree, MediumHeadings, SmallHeadings } from "../../../Text/Text";
 import { responsivePixels, fontSizes, spacing, colors } from "../../../../globalStyles";
+import SavedMedia from "../SavedMedia/SavedMedia";
 
 import XYObject from '../../../../sample-data.json';
 import influencerScores from '../../../../sample-polar-data.json';
@@ -78,6 +79,7 @@ const Home = () => {
             </ScrollView>
           </SafeAreaView>
         </ScrollView>
+    		<SavedMedia/>
       </SafeAreaView>
     </MainContainer>
   );
