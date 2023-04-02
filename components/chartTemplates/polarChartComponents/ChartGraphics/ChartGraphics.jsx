@@ -64,6 +64,7 @@ const ChartGraphics = ({
         fillOpacity={0.3}
         points={`${Object.keys(dataObject.influencerScore).map((item, index) => {
           const currentValues = getDataPoints(dataObject, index, radius);
+			 console.log(currentValues.x.toFixed(4),currentValues.y.toFixed(4) );
           return `${ currentValues.x.toFixed(4) } ${ currentValues.y.toFixed(4) }`
         })}`}
         />
