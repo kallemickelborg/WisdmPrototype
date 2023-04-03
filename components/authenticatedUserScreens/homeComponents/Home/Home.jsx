@@ -79,8 +79,8 @@ const Home = () => {
             </ScrollView>
           </SafeAreaView>
         </ScrollView>
-    		<SavedMedia/>
       </SafeAreaView>
+      <SavedMedia/>
     </MainContainer>
   );
 }

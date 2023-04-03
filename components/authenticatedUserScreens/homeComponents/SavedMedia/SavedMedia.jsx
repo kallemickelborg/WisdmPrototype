@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, Text, FlatList, Image } from "react-native";
 import SavedMediaButton from "../../../buttonComponents/SavedMediaButton/SavedMediaButton";
 import { SmallHeadings } from "../../../Text/Text";

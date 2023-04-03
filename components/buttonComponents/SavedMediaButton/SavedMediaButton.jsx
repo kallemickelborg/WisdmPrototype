@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, Text, Image } from "react-native";
 import { responsivePixels } from "../../../globalStyles";
 import { BodyThree, FinePrint, SmallHeadings } from "../../Text/Text";
@@ -10,8 +11,8 @@ const SavedMediaButton = ({ item }) => {
   const authorSplit = (author) => {
     return (
       <View style={{ textAlign: "center" }}>
-        <Text>{author.split(" ").slice(-1)}</Text>
-        <Text>{author.split(" ").slice(0, -1).join(" ")}</Text>{" "}
+        <BodyThree>{author.split(" ").slice(-1)}</BodyThree>
+        <BodyThree>{author.split(" ").slice(0, -1).join(" ")}{" "}</BodyThree>
       </View>
     );
   };
@@ -31,7 +32,7 @@ const SavedMediaButton = ({ item }) => {
           <Text>{header}</Text>
         </SmallHeadings>
         <View style={styles.infoDetails}>
-          <BodyThree>{authorSplit(author)}</BodyThree>
+          {authorSplit(author)}
           <FinePrint style={styles.publish}>
             {" "}
             <Ionicons size={responsivePixels(16)} name="time-outline" />{" "}

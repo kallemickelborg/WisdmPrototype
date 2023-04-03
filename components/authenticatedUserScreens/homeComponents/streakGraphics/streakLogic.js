@@ -7,7 +7,10 @@ export const currentDayValue = today.day() === 0 ? 6 : today.day() - 1;
 
 const getDays = () => {
   const dayArray = [];
-  let currentDay = today.startOf("week").add(1, "day");
+  let currentDay =
+    currentDayValue === 6
+      ? today.startOf("week").subtract(6, "day")
+      : today.startOf("week").add(1, "day");
   for (let i = 0; i < 7; i++) {
     dayArray.push({
       day: currentDay.format("dddd"),
